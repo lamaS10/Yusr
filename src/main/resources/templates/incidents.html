@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الحوادث | يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/incidents.css}">
+</head>
+
+<body>
+
+<main class="incidents-page">
+
+    <div class="incidents-container">
+
+        <!-- Header -->
+        <header class="page-header">
+
+            <div>
+                <a th:href="@{/dashboard}" class="back-link">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                    العودة إلى لوحة التحكم
+                </a>
+
+                <h1>الحوادث</h1>
+
+                <p>
+                    تسجيل ومتابعة الحوادث التي تحدث للمريض أثناء الرعاية
+                </p>
+            </div>
+
+            <button type="button"
+                    id="addIncidentBtn"
+                    class="primary-btn">
+
+                <span class="material-symbols-rounded">add</span>
+                تسجيل حادث
+
+            </button>
+
+        </header>
+
+
+        <!-- Summary -->
+        <section class="summary-grid">
+
+            <article class="summary-card">
+                <div class="summary-icon">
+                    <span class="material-symbols-rounded">warning</span>
+                </div>
+
+                <div>
+                    <span>إجمالي الحوادث</span>
+                    <strong id="totalIncidents">0</strong>
+                </div>
+            </article>
+
+
+            <article class="summary-card">
+                <div class="summary-icon">
+                    <span class="material-symbols-rounded">error</span>
+                </div>
+
+                <div>
+                    <span>مفتوحة</span>
+                    <strong id="openIncidents">0</strong>
+                </div>
+            </article>
+
+
+            <article class="summary-card">
+                <div class="summary-icon">
+                    <span class="material-symbols-rounded">visibility</span>
+                </div>
+
+                <div>
+                    <span>تحت المراقبة</span>
+                    <strong id="monitoringIncidents">0</strong>
+                </div>
+            </article>
+
+
+            <article class="summary-card">
+                <div class="summary-icon">
+                    <span class="material-symbols-rounded">check_circle</span>
+                </div>
+
+                <div>
+                    <span>تم حلها</span>
+                    <strong id="resolvedIncidents">0</strong>
+                </div>
+            </article>
+
+        </section>
+
+
+        <!-- Incidents -->
+        <section class="content-card">
+
+            <div class="section-header">
+
+                <div>
+                    <span class="section-label">سجل الحوادث</span>
+                    <h2>حوادث المريض</h2>
+                    <p>
+                        متابعة حالة الحوادث والإجراءات المتخذة
+                    </p>
+                </div>
+
+
+                <div class="filter-area">
+
+                    <span class="material-symbols-rounded">
+                        filter_list
+                    </span>
+
+                    <select id="incidentFilter">
+                        <option value="all">جميع الحالات</option>
+                        <option value="open">مفتوحة</option>
+                        <option value="monitoring">تحت المراقبة</option>
+                        <option value="resolved">تم حلها</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div id="incidentsList"
+                 class="incidents-list">
+            </div>
+
+
+            <div id="emptyIncidents"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    health_and_safety
+                </span>
+
+                <h3>لا توجد حوادث مسجلة</h3>
+
+                <p>
+                    عند تسجيل حادث للمريض سيظهر هنا.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <p id="pageMessage"
+           class="page-message"
+           role="status"
+           aria-live="polite"></p>
+
+    </div>
+
+</main>
+
+
+<!-- Add / Edit Incident Modal -->
+<div id="incidentModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="incidentModalTitle">
+                    تسجيل حادث
+                </h2>
+
+                <p id="incidentModalDescription">
+                    أدخلي تفاصيل الحادث الذي حدث للمريض
+                </p>
+            </div>
+
+
+            <button type="button"
+                    id="closeIncidentModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <form id="incidentForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="incidentType">
+                        نوع الحادث
+                    </label>
+
+                    <select id="incidentType" required>
+
+                        <option value="">
+                            اختاري نوع الحادث
+                        </option>
+
+                        <option value="fall">
+                            سقوط
+                        </option>
+
+                        <option value="medication_error">
+                            خطأ دوائي
+                        </option>
+
+                        <option value="health_change">
+                            تغير في الحالة الصحية
+                        </option>
+
+                        <option value="injury">
+                            إصابة
+                        </option>
+
+                        <option value="other">
+                            أخرى
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="severity">
+                        درجة الخطورة
+                    </label>
+
+                    <select id="severity" required>
+
+                        <option value="">
+                            اختاري درجة الخطورة
+                        </option>
+
+                        <option value="low">
+                            منخفضة
+                        </option>
+
+                        <option value="medium">
+                            متوسطة
+                        </option>
+
+                        <option value="high">
+                            عالية
+                        </option>
+
+                        <option value="critical">
+                            حرجة
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="incidentDescription">
+                    وصف الحادث
+                </label>
+
+                <textarea id="incidentDescription"
+                          rows="4"
+                          minlength="5"
+                          maxlength="500"
+                          required
+                          placeholder="اكتبي ما حدث بالتفصيل"></textarea>
+
+                <small>
+                    من 5 إلى 500 حرف
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="actionTaken">
+                    الإجراء المتخذ
+                </label>
+
+                <textarea id="actionTaken"
+                          rows="3"
+                          maxlength="500"
+                          placeholder="مثال: تم فحص المريض والتأكد من عدم وجود إصابة"></textarea>
+
+                <small>
+                    اختياري — الحد الأقصى 500 حرف
+                </small>
+
+            </div>
+
+
+            <div id="incidentTimeGroup"
+                 class="form-group">
+
+                <label for="incidentAt">
+                    وقت وقوع الحادث
+                </label>
+
+                <input type="datetime-local"
+                       id="incidentAt">
+
+                <small>
+                    إذا لم يتم تحديد الوقت، يسجل النظام الوقت الحالي.
+                </small>
+
+            </div>
+
+
+            <p id="incidentFormMessage"
+               class="modal-message"
+               role="status"
+               aria-live="polite"></p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelIncidentBtn"
+                        class="secondary-btn">
+                    إلغاء
+                </button>
+
+                <button type="submit"
+                        id="saveIncidentBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        save
+                    </span>
+
+                    حفظ الحادث
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- Resolve Modal -->
+<div id="resolveModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card small-modal">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>حل الحادث</h2>
+
+                <p>
+                    تحديد وقت انتهاء الحادث ومتابعته
+                </p>
+            </div>
+
+            <button type="button"
+                    id="closeResolveModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <form id="resolveForm">
+
+            <div class="form-group">
+
+                <label for="resolvedAt">
+                    وقت حل الحادث
+                </label>
+
+                <input type="datetime-local"
+                       id="resolvedAt">
+
+                <small>
+                    اتركيه فارغًا لاستخدام الوقت الحالي.
+                </small>
+
+            </div>
+
+
+            <p id="resolveMessage"
+               class="modal-message"></p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelResolveBtn"
+                        class="secondary-btn">
+                    إلغاء
+                </button>
+
+                <button type="submit"
+                        id="confirmResolveBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        check_circle
+                    </span>
+
+                    تأكيد الحل
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script th:src="@{/js/incidents.js}"></script>
+
+</body>
+</html>

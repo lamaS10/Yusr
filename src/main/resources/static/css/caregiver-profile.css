@@ -1,0 +1,616 @@
+/* =========================
+   YUSR - Caregiver Profile
+   ========================= */
+
+.profile-page {
+    min-height: 100vh;
+    background: #F7F5F0;
+    padding: 45px 6%;
+}
+
+.profile-container {
+    max-width: 1050px;
+    margin: auto;
+}
+
+/* Header */
+
+.page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #82998A;
+    font-size: 13px;
+    margin-bottom: 17px;
+    text-decoration: none;
+}
+
+.page-header h1 {
+    color: #40584D;
+    font-size: 29px;
+    margin-bottom: 7px;
+}
+
+.page-header p {
+    color: #849089;
+    font-size: 14px;
+}
+
+.outline-btn {
+    padding: 11px 19px;
+    border: 1px solid #40584D;
+    border-radius: 9px;
+    background: #FFFFFF;
+    color: #40584D;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+}
+
+.outline-btn:hover {
+    background: #E8EDE9;
+}
+
+
+/* Profile Header */
+
+.profile-header-card {
+    display: flex;
+    align-items: center;
+    gap: 23px;
+    padding: 28px;
+    background: #40584D;
+    color: #FFFFFF;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-avatar .material-symbols-rounded {
+    font-size: 35px;
+}
+
+.profile-main-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-main-info > span,
+.profile-badges span {
+    display: block;
+    font-size: 12px;
+    opacity: 0.75;
+    margin-bottom: 7px;
+}
+
+.profile-main-info h2 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.profile-main-info p {
+    font-size: 13px;
+    opacity: 0.85;
+    overflow-wrap: anywhere;
+}
+
+.profile-badges {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-right: auto;
+}
+
+.profile-badges > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+}
+
+.profile-badges span {
+    display: block;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 11px;
+}
+
+.profile-badges strong {
+    display: inline-flex;
+    align-items: center;
+
+    width: fit-content;
+    padding: 6px 11px;
+
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* Cards */
+
+.profile-card,
+.danger-card {
+    background: #FFFFFF;
+    border: 1px solid #E8E4DE;
+    border-radius: 15px;
+    padding: 28px;
+    margin-bottom: 20px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 26px;
+}
+
+.heading-icon {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #E8EDE9;
+    color: #40584D;
+}
+
+.section-heading h2 {
+    font-size: 17px;
+    color: #40584D;
+    margin-bottom: 5px;
+}
+
+.section-heading p {
+    font-size: 13px;
+    color: #89938E;
+}
+
+
+/* View */
+
+.info-grid,
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 23px;
+}
+
+.info-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #F0EFEB;
+}
+
+.info-field span {
+    color: #8B9690;
+    font-size: 13px;
+}
+
+.info-field strong {
+    color: #34463C;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+
+/* Form */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.form-group label {
+    color: #40584D;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #DFE4E0;
+    border-radius: 9px;
+    background: #FCFCFA;
+    color: #2F3E37;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #82998A;
+    box-shadow: 0 0 0 3px rgba(130, 153, 138, 0.13);
+}
+
+.form-group small {
+    color: #8B9690;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* Change Password Option */
+
+.password-option {
+    margin-top: 28px;
+}
+
+.change-password-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px;
+    border: 1px solid #E2E8E3;
+    border-radius: 11px;
+    background: #FAFBF9;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.change-password-label:hover {
+    border-color: #82998A;
+    background: #F6F8F5;
+}
+
+.change-password-label > input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.custom-checkbox {
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #AAB7AE;
+    border-radius: 5px;
+    color: #FFFFFF;
+    transition: 0.2s;
+}
+
+.custom-checkbox .material-symbols-rounded {
+    font-size: 16px;
+    opacity: 0;
+}
+
+.change-password-label > input:checked + .custom-checkbox {
+    background: #40584D;
+    border-color: #40584D;
+}
+
+.change-password-label > input:checked
++ .custom-checkbox
+.material-symbols-rounded {
+    opacity: 1;
+}
+
+.password-option-icon {
+    color: #82998A;
+    font-size: 25px;
+}
+
+.change-password-label strong {
+    display: block;
+    color: #40584D;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.change-password-label small {
+    display: block;
+    color: #8B9690;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* Password Section */
+
+.password-section {
+    margin-top: 16px;
+    padding: 22px;
+    background: #FAFBF9;
+    border: 1px solid #E5EBE6;
+    border-radius: 12px;
+}
+
+.password-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin-bottom: 20px;
+    color: #40584D;
+}
+
+.password-heading > .material-symbols-rounded {
+    font-size: 25px;
+}
+
+.password-heading h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.password-heading p {
+    color: #839087;
+    font-size: 12px;
+}
+
+.password-group {
+    max-width: 450px;
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-left: 48px;
+}
+
+.password-toggle {
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #82998A;
+    cursor: pointer;
+}
+
+
+/* Form Actions */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 11px;
+    margin-top: 28px;
+}
+
+.primary-btn,
+.cancel-btn {
+    padding: 12px 21px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background: #40584D;
+    color: #FFFFFF;
+    border: 1px solid #40584D;
+}
+
+.primary-btn:hover {
+    background: #344B3F;
+}
+
+.cancel-btn {
+    background: #FFFFFF;
+    color: #65756B;
+    border: 1px solid #DCE3DD;
+}
+
+.cancel-btn:hover {
+    background: #F4F6F3;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Care Information */
+
+.care-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px;
+    background: #FAFBF9;
+    border: 1px solid #E8EBE8;
+    border-radius: 11px;
+}
+
+.info-box span {
+    font-size: 12px;
+    color: #89938E;
+}
+
+.info-box strong {
+    color: #40584D;
+    font-size: 14px;
+}
+
+
+/* Delete */
+
+.danger-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-color: #EADEDE;
+}
+
+.danger-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #A45D5D;
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+
+.danger-card p {
+    color: #8C8987;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.delete-account-btn {
+    flex-shrink: 0;
+    padding: 11px 17px;
+    border: 1px solid #E3C9C9;
+    border-radius: 9px;
+    background: #FFFAFA;
+    color: #A45D5D;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.delete-account-btn:hover {
+    background: #FBEEEE;
+}
+
+
+/* Messages */
+
+.form-message {
+    margin-top: 17px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.form-message.success {
+    color: #527A60;
+}
+
+.form-message.error {
+    color: #A64B4B;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* Responsive */
+
+@media (max-width: 850px) {
+
+    .care-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile-header-card {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .profile-page {
+        padding: 28px 18px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .profile-header-card {
+        gap: 16px;
+    }
+
+    .profile-badges {
+        width: 100%;
+        margin-right: 0;
+        gap: 20px;
+    }
+
+    .profile-badges > div {
+        flex: 1;
+    }
+
+    .info-grid,
+    .form-grid,
+    .care-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card,
+    .danger-card {
+        padding: 21px;
+    }
+
+    .danger-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .password-section {
+        padding: 16px;
+    }
+}
+#deletePatientSection {
+    background: #FFF9F9;
+    border-color: #E6CCCC;
+}
+
+#deletePatientSection h2 {
+    color: #984F4F;
+}
+
+#deletePatientSection .delete-account-btn {
+    background: #A45D5D;
+    border-color: #A45D5D;
+    color: #FFFFFF;
+}
+
+#deletePatientSection .delete-account-btn:hover {
+    background: #914F4F;
+}

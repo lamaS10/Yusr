@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>فريق الرعاية | يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/care-team.css}">
+</head>
+
+<body>
+
+<main class="care-team-page">
+
+    <div class="care-team-container">
+
+        <!-- Header -->
+        <header class="page-header">
+
+            <div>
+                <a th:href="@{/dashboard}" class="back-link">
+                    <span class="material-symbols-rounded">
+                        arrow_forward
+                    </span>
+                    العودة إلى لوحة التحكم
+                </a>
+
+                <h1>فريق الرعاية</h1>
+
+                <p>
+                    إدارة مقدمي الرعاية المشاركين في رعاية المريض
+                </p>
+            </div>
+
+            <button type="button"
+                    id="inviteCaregiverBtn"
+                    class="primary-btn hidden">
+
+                <span class="material-symbols-rounded">
+                    person_add
+                </span>
+
+                دعوة مقدم رعاية
+            </button>
+
+        </header>
+
+
+        <!-- Pending Invitation -->
+        <section id="pendingInvitationSection"
+                 class="invitation-card hidden">
+
+            <div class="invitation-icon">
+                <span class="material-symbols-rounded">
+                    mark_email_unread
+                </span>
+            </div>
+
+            <div class="invitation-content">
+
+                <span class="section-label">
+                    دعوة رعاية معلقة
+                </span>
+
+                <h2>
+                    تمت دعوتك للانضمام إلى فريق رعاية
+                </h2>
+
+                <p>
+                    يمكنك قبول الدعوة للارتباط بالمريض
+                    أو رفضها.
+                </p>
+
+                <div class="invitation-details">
+
+                    <div>
+                        <span>اسم المريض </span>
+                        <strong id="invitationPatient">-</strong>
+                    </div>
+
+                    <div>
+                        <span>الدور المقترح</span>
+                        <strong id="invitationRole">-</strong>
+                    </div>
+
+                </div>
+
+                <div class="invitation-actions">
+
+                    <button type="button"
+                            id="acceptInvitationBtn"
+                            class="primary-btn">
+
+                        <span class="material-symbols-rounded">
+                            check
+                        </span>
+
+                        قبول الدعوة
+                    </button>
+
+                    <button type="button"
+                            id="rejectInvitationBtn"
+                            class="secondary-btn danger-text">
+
+                        <span class="material-symbols-rounded">
+                            close
+                        </span>
+
+                        رفض الدعوة
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Patient Team Summary -->
+        <section id="teamSummary"
+                 class="team-summary hidden">
+
+            <div class="summary-icon">
+                <span class="material-symbols-rounded">
+                    groups
+                </span>
+            </div>
+
+            <div>
+                <span>فريق رعاية المريض</span>
+                <h2 id="teamPatientName">-</h2>
+                <p id="teamCount">-</p>
+            </div>
+
+        </section>
+
+
+        <!-- Team -->
+        <section id="teamSection"
+                 class="team-card hidden">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>أعضاء فريق الرعاية</h2>
+
+                    <p>
+                        الأشخاص المشاركون في متابعة ورعاية المريض
+                    </p>
+                </div>
+
+            </div>
+
+            <div id="caregiversList"
+                 class="caregivers-list">
+            </div>
+
+            <div id="emptyTeam"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    group_off
+                </span>
+
+                <h3>لا يوجد أعضاء آخرون</h3>
+
+                <p>
+                    أنت مقدم الرعاية الوحيد المرتبط بهذا المريض.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Outgoing Pending Invitations -->
+        <section id="outgoingInvitationsSection"
+                 class="team-card hidden">
+
+            <div class="section-heading">
+                <div>
+                    <h2>الدعوات المرسلة</h2>
+                    <p>
+                        دعوات مقدمي الرعاية التي ما زالت بانتظار القبول
+                    </p>
+                </div>
+            </div>
+
+            <div id="outgoingInvitationsList"
+                 class="outgoing-invitations-list">
+            </div>
+
+            <div id="emptyOutgoingInvitations"
+                 class="small-empty-state hidden">
+
+        <span class="material-symbols-rounded">
+            mark_email_read
+        </span>
+
+                <p>
+                    لا توجد دعوات معلقة حاليًا.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Care Handover -->
+        <section id="handoverSection"
+                 class="team-card hidden">
+
+            <div class="handover-section-header">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        المسؤولية الحالية
+                    </span>
+
+                    <h2>تسليم الرعاية</h2>
+
+                    <p>
+                        نقل مسؤولية الرعاية الحالية إلى أحد أعضاء الفريق
+                    </p>
+
+                </div>
+
+                <button type="button"
+                        id="createHandoverBtn"
+                        class="primary-btn hidden">
+
+                    <span class="material-symbols-rounded">
+                        move_up
+                    </span>
+
+                    تسليم الرعاية
+                </button>
+
+            </div>
+
+
+            <!-- Current Caregiver -->
+            <div class="current-caregiver-box">
+
+                <div class="current-caregiver-icon">
+                    <span class="material-symbols-rounded">
+                        volunteer_activism
+                    </span>
+                </div>
+
+                <div>
+                    <span>مقدم الرعاية المسؤول حاليًا</span>
+                    <strong id="currentCaregiverName">-</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Incoming Handover -->
+            <div id="incomingHandoverSection"
+                 class="incoming-handover hidden">
+
+                <div class="handover-alert-icon">
+                    <span class="material-symbols-rounded">
+                        notification_important
+                    </span>
+                </div>
+
+                <div class="handover-alert-content">
+
+                    <span class="section-label">
+                        طلب استلام رعاية
+                    </span>
+
+                    <h3>
+                        لديك طلب لتولي مسؤولية الرعاية
+                    </h3>
+
+                    <p>
+                        راجعي تفاصيل التسليم قبل قبول المسؤولية أو رفضها.
+                    </p>
+
+                    <div class="handover-details">
+
+                        <div>
+                            <span>من</span>
+                            <strong id="incomingFromName">-</strong>
+                        </div>
+
+                        <div>
+                            <span>وقت الإرسال</span>
+                            <strong id="incomingCreatedAt">-</strong>
+                        </div>
+
+                        <div>
+                            <span>الرد المتوقع قبل</span>
+                            <strong id="incomingExpectedAt">-</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="handover-summary-box">
+
+                        <span>ملخص التسليم</span>
+
+                        <p id="incomingSummary">-</p>
+
+                    </div>
+
+
+                    <div class="handover-alert-actions">
+
+                        <button type="button"
+                                id="acceptHandoverBtn"
+                                class="primary-btn">
+
+                            <span class="material-symbols-rounded">
+                                check_circle
+                            </span>
+
+                            قبول واستلام الرعاية
+                        </button>
+
+                        <button type="button"
+                                id="rejectHandoverBtn"
+                                class="secondary-btn danger-text">
+
+                            <span class="material-symbols-rounded">
+                                cancel
+                            </span>
+
+                            رفض الطلب
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Sent Handover History -->
+            <div class="handover-history">
+
+                <div class="handover-history-heading">
+
+                    <h3>طلبات التسليم المرسلة</h3>
+
+                    <p>
+                        سجل طلبات تسليم الرعاية التي قمت بإرسالها
+                    </p>
+
+                </div>
+
+                <div id="sentHandoversList"
+                     class="sent-handovers-list">
+                </div>
+
+                <div id="emptySentHandovers"
+                     class="small-empty-state hidden">
+
+                    <span class="material-symbols-rounded">
+                        swap_horiz
+                    </span>
+
+                    <p>
+                        لم ترسلي طلبات تسليم رعاية حتى الآن.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Leave Patient -->
+        <section id="leaveSection"
+                 class="leave-card hidden">
+
+            <div>
+
+                <h2>
+                    <span class="material-symbols-rounded">
+                        logout
+                    </span>
+
+                    مغادرة رعاية المريض
+                </h2>
+
+                <p id="leaveDescription">
+                    سيتم إلغاء ارتباط حسابك بالمريض.
+                </p>
+
+            </div>
+
+            <button type="button"
+                    id="leavePatientBtn"
+                    class="danger-btn">
+
+                <span class="material-symbols-rounded">
+                    logout
+                </span>
+
+                مغادرة الرعاية
+            </button>
+
+        </section>
+
+
+        <!-- No Patient -->
+        <section id="noPatientSection"
+                 class="empty-page-state hidden">
+
+            <span class="material-symbols-rounded">
+                groups
+            </span>
+
+            <h2>لا يوجد فريق رعاية حاليًا</h2>
+
+            <p>
+                حسابك غير مرتبط بمريض في الوقت الحالي.
+                إذا كانت لديك دعوة معلقة فستظهر هنا.
+            </p>
+
+        </section>
+
+
+        <p id="careTeamMessage"
+           class="form-message"
+           role="status"
+           aria-live="polite"></p>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     Invite Modal
+     ========================= -->
+
+<div id="inviteModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>دعوة مقدم رعاية</h2>
+                <p>
+                    أرسل دعوة للانضمام إلى فريق رعاية المريض
+                </p>
+            </div>
+
+            <button type="button"
+                    id="closeInviteModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+        <form id="inviteForm">
+
+            <div class="form-group">
+
+                <label for="inviteEmail">
+                    البريد الإلكتروني
+                </label>
+
+                <input type="email"
+                       id="inviteEmail"
+                       dir="ltr"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="invitePhone">
+                    رقم الجوال
+                </label>
+
+                <input type="tel"
+                       id="invitePhone"
+                       dir="ltr"
+                       pattern="05[0-9]{8}"
+                       maxlength="10"
+                       placeholder="05xxxxxxxx"
+                       required>
+
+            </div>
+            <div class="role-auto-note">
+                <span class="material-symbols-rounded">info</span>
+                <span>
+                    سيتم تحديد دور مقدم الرعاية تلقائياً حسب فريق الرعاية الحالي.
+                </span>
+            </div>
+
+
+
+            <p id="inviteMessage"
+               class="modal-message"></p>
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelInviteBtn"
+                        class="secondary-btn">
+                    إلغاء
+                </button>
+
+                <button type="submit"
+                        id="sendInvitationBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        send
+                    </span>
+
+                    إرسال الدعوة
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     Transfer Primary Modal
+     ========================= -->
+
+<div id="transferModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>نقل دور مقدم الرعاية الأساسي</h2>
+
+                <p>
+                    سيصبح مقدم الرعاية المحدد هو المسؤول الأساسي.
+                </p>
+
+            </div>
+
+            <button type="button"
+                    id="closeTransferModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+        <div class="selected-caregiver">
+
+            <span>نقل الدور إلى</span>
+
+            <strong id="transferCaregiverName">
+                -
+            </strong>
+
+        </div>
+
+        <p class="warning-box">
+            بعد نقل الدور سيصبح مقدم الرعاية المحدد هو مقدم الرعاية الأساسي،
+            وسيبقى حسابك ضمن فريق الرعاية بدور غير أساسي.
+        </p>
+
+        <p id="transferMessage"
+           class="modal-message"></p>
+
+        <div class="modal-actions">
+
+            <button type="button"
+                    id="cancelTransferBtn"
+                    class="secondary-btn">
+                إلغاء
+            </button>
+
+            <button type="button"
+                    id="confirmTransferBtn"
+                    class="primary-btn">
+
+                <span class="material-symbols-rounded">
+                    swap_horiz
+                </span>
+
+                تأكيد نقل الدور
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     Leave Modal
+     ========================= -->
+
+<div id="leaveModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>مغادرة رعاية المريض</h2>
+
+                <p>
+                    تأكدي من اختيار الإجراء المناسب قبل المغادرة.
+                </p>
+
+            </div>
+
+            <button type="button"
+                    id="closeLeaveModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div id="newPrimarySection"
+             class="form-group hidden">
+
+            <label for="newPrimaryCaregiver">
+                مقدم الرعاية الأساسي الجديد
+            </label>
+
+            <select id="newPrimaryCaregiver">
+
+                <option value="">
+                    اختاري مقدم الرعاية
+                </option>
+
+            </select>
+
+            <small>
+                يجب اختيار أحد أعضاء الفريق قبل مغادرتك.
+            </small>
+
+        </div>
+
+
+        <div class="leave-warning">
+
+            <span class="material-symbols-rounded">
+                warning
+            </span>
+
+            <p id="leaveWarningText">
+                سيتم إلغاء ارتباط حسابك بالمريض.
+            </p>
+
+        </div>
+
+        <p id="leaveModalMessage"
+           class="modal-message"></p>
+
+        <div class="modal-actions">
+
+            <button type="button"
+                    id="cancelLeaveBtn"
+                    class="secondary-btn">
+                إلغاء
+            </button>
+
+            <button type="button"
+                    id="confirmLeaveBtn"
+                    class="danger-btn">
+
+                <span class="material-symbols-rounded">
+                    logout
+                </span>
+
+                تأكيد المغادرة
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     Handover Modal
+     ========================= -->
+
+<div id="handoverModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="handoverModalTitle">
+                    تسليم الرعاية
+                </h2>
+
+                <p id="handoverModalDescription">
+                    اختاري مقدم الرعاية الذي سيتولى المسؤولية الحالية
+                </p>
+
+            </div>
+
+            <button type="button"
+                    id="closeHandoverModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <form id="handoverForm">
+
+            <div id="handoverReceiverGroup"
+                 class="form-group">
+
+                <label for="handoverReceiver">
+                    تسليم الرعاية إلى
+                </label>
+
+                <select id="handoverReceiver"
+                        required>
+
+                    <option value="">
+                        اختاري مقدم الرعاية
+                    </option>
+
+                </select>
+
+                <small>
+                    يمكن التسليم فقط لأحد أعضاء فريق الرعاية النشطين.
+                </small>
+
+            </div>
+
+
+            <div id="fixedReceiverBox"
+                 class="selected-caregiver hidden">
+
+                <span>
+                    مقدم الرعاية المستلم
+                </span>
+
+                <strong id="fixedReceiverName">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="handoverSummary">
+                    ملخص التسليم
+                </label>
+
+                <textarea id="handoverSummary"
+                          minlength="5"
+                          maxlength="500"
+                          rows="5"
+                          required
+                          placeholder="اكتبي أهم المعلومات التي يحتاج مقدم الرعاية التالي معرفتها..."></textarea>
+
+                <small>
+                    من 5 إلى 500 حرف
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="expectedAcceptanceAt">
+                    وقت الاستجابة المتوقع
+                </label>
+
+                <input type="datetime-local"
+                       id="expectedAcceptanceAt"
+                       required>
+
+                <small>
+                    يجب أن يكون الوقت في المستقبل.
+                </small>
+
+            </div>
+
+
+            <div class="handover-info-box">
+
+                <span class="material-symbols-rounded">
+                    info
+                </span>
+
+                <p>
+                    عند قبول الطلب ستنتقل مسؤولية الرعاية
+                    والمهام المعلقة إلى مقدم الرعاية الجديد تلقائيًا.
+                </p>
+
+            </div>
+
+
+            <p id="handoverModalMessage"
+               class="modal-message"></p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelHandoverBtn"
+                        class="secondary-btn">
+                    إلغاء
+                </button>
+
+                <button type="submit"
+                        id="saveHandoverBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        send
+                    </span>
+
+                    حفظ طلب التسليم
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script th:src="@{/js/care-team.js}"></script>
+
+</body>
+</html>

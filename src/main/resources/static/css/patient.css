@@ -1,0 +1,499 @@
+.patient-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 45px 20px;
+
+    background-color: var(--background);
+}
+
+
+.patient-form-card {
+    width: 100%;
+    max-width: 850px;
+
+    background-color: var(--white);
+
+    border: 1px solid #e8e4de;
+    border-radius: 18px;
+
+    padding: 35px 45px;
+
+    box-shadow: 0 12px 40px rgba(64, 88, 77, 0.07);
+}
+
+
+/* =========================
+   Back Link
+   ========================= */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--secondary);
+
+    font-size: 13px;
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+
+/* =========================
+   Logo
+   ========================= */
+
+.patient-logo {
+    display: block;
+
+    width: 120px;
+
+    margin: 0 auto 5px;
+}
+
+
+/* =========================
+   Step Indicator
+   ========================= */
+
+.step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    width: fit-content;
+
+    margin: 0 auto 25px;
+
+    padding: 8px 13px;
+
+    background-color: var(--light-green);
+
+    border-radius: 12px;
+}
+
+
+.step-number {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background-color: var(--primary);
+    color: var(--white);
+
+    border-radius: 50%;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.step-indicator > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+
+.step-indicator strong {
+    color: var(--primary);
+
+    font-size: 13px;
+}
+
+
+.step-indicator small {
+    color: var(--secondary);
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   Titles
+   ========================= */
+
+.patient-form-card h1 {
+    text-align: center;
+
+    color: var(--primary);
+
+    font-size: 28px;
+
+    margin-bottom: 8px;
+}
+
+
+.page-description {
+    text-align: center;
+
+    color: var(--secondary);
+
+    font-size: 14px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   Form
+   ========================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px 22px;
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.form-group label {
+    color: var(--primary);
+
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #dfe4e0;
+    border-radius: 8px;
+
+    background-color: #fcfcfa;
+
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--secondary);
+
+    box-shadow:
+            0 0 0 3px rgba(130, 153, 138, 0.12);
+}
+
+
+.form-group textarea {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+
+.full-width {
+    margin-top: 18px;
+}
+
+
+/* =========================
+   Messages
+   ========================= */
+
+.form-message {
+    min-height: 20px;
+
+    margin: 18px 0 8px;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+
+.form-message.error {
+    color: #a64b4b;
+}
+
+
+.form-message.success {
+    color: #527a60;
+}
+
+
+/* =========================
+   Primary Button
+   ========================= */
+
+.save-btn {
+    width: 100%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 14px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: var(--primary);
+    color: var(--white);
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.save-btn:hover {
+    opacity: 0.92;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   Secondary Button
+   ========================= */
+
+.secondary-btn {
+    width: 100%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 13px;
+
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+
+    background-color: var(--white);
+    color: var(--primary);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.secondary-btn:hover {
+    background-color: var(--light-green);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   Chronic Question
+   ========================= */
+
+.chronic-question {
+    max-width: 600px;
+
+    margin: 10px auto 0;
+
+    padding: 25px 30px 10px;
+
+    text-align: center;
+}
+
+
+.question-icon {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    background-color: var(--light-green);
+    color: var(--primary);
+
+    border-radius: 50%;
+}
+
+
+.question-icon .material-symbols-rounded {
+    font-size: 30px;
+}
+
+
+.chronic-question h1 {
+    margin-bottom: 12px;
+}
+
+
+.chronic-question > p {
+    max-width: 520px;
+
+    margin: 0 auto;
+
+    color: var(--secondary);
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+/* =========================
+   Question Actions
+   ========================= */
+
+.question-actions {
+    max-width: 520px;
+
+    display: flex;
+    gap: 12px;
+
+    margin: 28px auto 0;
+}
+
+
+.question-actions .save-btn,
+.question-actions .secondary-btn {
+    flex: 1;
+
+    margin-top: 0;
+}
+
+
+/* =========================
+   Success Step
+   ========================= */
+
+.condition-success {
+    max-width: 600px;
+
+    margin: 15px auto;
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+
+.success-icon {
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    background-color: var(--light-green);
+    color: var(--primary);
+
+    border-radius: 50%;
+}
+
+
+.success-icon .material-symbols-rounded {
+    font-size: 34px;
+}
+
+
+.condition-success h1 {
+    margin-bottom: 12px;
+}
+
+
+.condition-success > p {
+    color: var(--secondary);
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+/* =========================
+   Hidden Steps
+   IMPORTANT: keep at bottom
+   ========================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .patient-page {
+        padding: 25px 15px;
+    }
+
+
+    .patient-form-card {
+        padding: 28px 22px;
+    }
+
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .question-actions {
+        flex-direction: column;
+    }
+
+
+    .chronic-question,
+    .condition-success {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+
+    .patient-form-card h1 {
+        font-size: 24px;
+    }
+}

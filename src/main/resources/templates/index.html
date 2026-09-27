@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar"
+      dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>يسر | Yusr</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav th:replace="~{base :: navbar}"></nav>
+
+
+<!-- Hero -->
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="hero-small-title">
+            لأن الرعاية أسهل عندما نتشاركها
+        </span>
+
+        <h1>
+            رعاية أسهل...
+            <br>
+            لحياة أفضل
+        </h1>
+
+        <p>
+            يسر يساعدك على متابعة رعاية من تحب في مكان واحد،
+            من الأدوية والمهام اليومية إلى القراءات الصحية
+            والملخصات الذكية.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a th:href="@{/register}" class="primary-btn">
+                ابدأ الآن
+            </a>
+
+            <a th:href="@{/login}" class="secondary-btn">
+                تسجيل الدخول
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+</section>
+
+
+<!-- Quick Features -->
+<section class="quick-features">
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <span class="material-symbols-rounded">groups</span>
+        </div>
+        <h3>رعاية مشتركة</h3>
+
+        <p>
+            تنظيم الرعاية بين أفراد الأسرة ومقدمي الرعاية.
+        </p>
+    </div>
+
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <span class="material-symbols-rounded">task_alt</span>
+        </div>
+        <h3>متابعة يومية</h3>
+
+        <p>
+            متابعة الأدوية والمهام والاحتياجات اليومية.
+        </p>
+    </div>
+
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <span class="material-symbols-rounded">monitor_heart</span>
+        </div>
+        <h3>متابعة صحية</h3>
+
+        <p>
+            تسجيل القراءات الصحية ومتابعة حالة المريض.
+        </p>
+    </div>
+
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <span class="material-symbols-rounded">auto_awesome</span>
+        </div>
+        <h3>ملخص ذكي</h3>
+
+        <p>
+            ملخصات ذكية تساعدك على معرفة أهم المستجدات.
+        </p>
+    </div>
+
+</section>
+
+
+<script th:src="@{/js/base.js}"></script>
+
+</body>
+</html>

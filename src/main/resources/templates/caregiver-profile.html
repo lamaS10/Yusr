@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الملف الشخصي | يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/caregiver-profile.css}">
+</head>
+
+<body>
+
+<main class="profile-page">
+
+    <div class="profile-container">
+
+        <!-- Page Header -->
+        <header class="page-header">
+
+            <div>
+                <a th:href="@{/dashboard}" class="back-link">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                    العودة إلى لوحة التحكم
+                </a>
+
+                <h1>الملف الشخصي</h1>
+                <p>إدارة بيانات حسابك ومعلومات الرعاية</p>
+            </div>
+
+            <button type="button"
+                    id="editProfileBtn"
+                    class="outline-btn">
+
+                <span class="material-symbols-rounded">edit</span>
+                تعديل البيانات
+            </button>
+
+        </header>
+
+
+        <!-- Profile Header -->
+        <section class="profile-header-card">
+
+            <div class="profile-avatar">
+                <span class="material-symbols-rounded">person</span>
+            </div>
+
+            <div class="profile-main-info">
+                <span>مقدم الرعاية</span>
+                <h2 id="profileName">-</h2>
+                <p id="profileEmail">-</p>
+            </div>
+
+            <div class="profile-badges">
+
+                <div>
+                    <span>الدور</span>
+                    <strong id="profileRole">-</strong>
+                </div>
+
+                <div>
+                    <span>حالة الحساب</span>
+                    <strong id="profileStatus">-</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Account Information -->
+        <section class="profile-card">
+
+            <div class="section-heading">
+
+                <div class="heading-icon">
+                    <span class="material-symbols-rounded">badge</span>
+                </div>
+
+                <div>
+                    <h2>بيانات الحساب</h2>
+                    <p>معلوماتك الشخصية المسجلة في يسر</p>
+                </div>
+
+            </div>
+
+
+            <!-- View Mode -->
+            <div id="profileView" class="info-grid">
+
+                <div class="info-field">
+                    <span>الاسم الكامل</span>
+                    <strong id="viewFullName">-</strong>
+                </div>
+
+                <div class="info-field">
+                    <span>البريد الإلكتروني</span>
+                    <strong id="viewEmail" dir="ltr">-</strong>
+                </div>
+
+                <div class="info-field">
+                    <span>رقم الجوال</span>
+                    <strong id="viewPhone" dir="ltr">-</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Edit Mode -->
+            <form id="profileForm" class="hidden">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="fullName">الاسم الكامل</label>
+
+                        <input type="text"
+                               id="fullName"
+                               minlength="3"
+                               maxlength="50"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+
+                        <input type="email"
+                               id="email"
+                               dir="ltr"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">رقم الجوال</label>
+
+                        <input type="tel"
+                               id="phoneNumber"
+                               dir="ltr"
+                               pattern="05[0-9]{8}"
+                               maxlength="10"
+                               required>
+                    </div>
+
+                </div>
+
+
+                <!-- Change Password Option -->
+                <div class="password-option">
+
+                    <label class="change-password-label">
+
+                        <input type="checkbox"
+                               id="changePasswordCheckbox">
+
+                        <span class="custom-checkbox">
+                            <span class="material-symbols-rounded">check</span>
+                        </span>
+
+                        <span class="password-option-icon material-symbols-rounded">
+                            lock_reset
+                        </span>
+
+                        <span>
+                            <strong>تغيير كلمة المرور</strong>
+                            <small>
+                                فعّلي هذا الخيار فقط إذا كنتِ ترغبين
+                                بتعيين كلمة مرور جديدة
+                            </small>
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- New Password -->
+                <div id="passwordSection"
+                     class="password-section hidden">
+
+                    <div class="password-heading">
+
+                        <span class="material-symbols-rounded">
+                            password
+                        </span>
+
+                        <div>
+                            <h3>كلمة المرور الجديدة</h3>
+                            <p>
+                                سيتم استخدام كلمة المرور الجديدة
+                                عند تسجيل الدخول القادم.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group password-group">
+
+                        <label for="newPassword">
+                            كلمة المرور الجديدة
+                        </label>
+
+                        <div class="password-field">
+
+                            <input type="password"
+                                   id="newPassword"
+                                   placeholder="أدخلي كلمة المرور الجديدة"
+                                   autocomplete="new-password">
+
+                            <button type="button"
+                                    id="togglePasswordBtn"
+                                    class="password-toggle"
+                                    aria-label="إظهار كلمة المرور">
+
+                                <span class="material-symbols-rounded">
+                                    visibility
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                        <small>
+                            من 8 إلى 30 حرفًا، وتشمل حرفًا كبيرًا
+                            وصغيرًا ورقمًا ورمزًا خاصًا.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button type="button"
+                            id="cancelEditBtn"
+                            class="cancel-btn">
+                        إلغاء
+                    </button>
+
+                    <button type="submit"
+                            id="saveProfileBtn"
+                            class="primary-btn">
+
+                        <span class="material-symbols-rounded">save</span>
+                        حفظ التعديلات
+                    </button>
+
+                </div>
+
+            </form>
+
+            <p id="profileMessage"
+               class="form-message"
+               role="status"
+               aria-live="polite"></p>
+
+        </section>
+
+
+        <!-- Care Information -->
+        <section class="profile-card">
+
+            <div class="section-heading">
+
+                <div class="heading-icon">
+                    <span class="material-symbols-rounded">
+                        volunteer_activism
+                    </span>
+                </div>
+
+                <div>
+                    <h2>معلومات الرعاية</h2>
+                    <p>تفاصيل ارتباطك بالمريض</p>
+                </div>
+
+            </div>
+
+            <div class="care-info-grid">
+
+                <div class="info-box">
+                    <span>الدور الحالي</span>
+                    <strong id="careRole">-</strong>
+                </div>
+
+                <div class="info-box">
+                    <span>المريض المرتبط</span>
+                    <strong id="linkedPatient">-</strong>
+                </div>
+
+                <div class="info-box">
+                    <span>تاريخ الارتباط بالمريض </span>
+                    <strong id="assignedAt">-</strong>
+                </div>
+
+                <div class="info-box">
+                    <span>مسؤول الرعاية الحالي</span>
+                    <strong id="currentCaregiver">-</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Leave Patient -->
+        <section id="leavePatientSection"
+                 class="danger-card hidden">
+
+            <div>
+                <h2>
+            <span class="material-symbols-rounded">
+                logout
+            </span>
+                    مغادرة رعاية المريض
+                </h2>
+
+                <p>
+                    سيتم فك ارتباط حسابك بالمريض مع الاحتفاظ بسجل المريض وبياناته.
+                </p>
+            </div>
+
+            <button type="button"
+                    id="leavePatientBtn"
+                    class="delete-account-btn">
+
+        <span class="material-symbols-rounded">
+            logout
+        </span>
+
+                مغادرة رعاية المريض
+            </button>
+
+        </section>
+        <!-- Delete Patient Record -->
+        <section id="deletePatientSection"
+                 class="danger-card hidden">
+
+            <div>
+                <h2>
+            <span class="material-symbols-rounded">
+                person_cancel
+            </span>
+                    حذف سجل المريض نهائيًا
+                </h2>
+
+                <p>
+                    سيتم حذف سجل المريض وجميع البيانات المرتبطة به نهائيًا.
+                    لا يمكن التراجع عن هذا الإجراء.
+                </p>
+            </div>
+
+            <button type="button"
+                    id="deletePatientBtn"
+                    class="delete-account-btn">
+
+        <span class="material-symbols-rounded">
+            delete_forever
+        </span>
+
+                حذف سجل المريض
+            </button>
+
+        </section>
+
+        <!-- Delete Account -->
+        <section class="danger-card">
+
+            <div>
+                <h2>
+                    <span class="material-symbols-rounded">delete</span>
+                    حذف الحساب
+                </h2>
+
+                <p>
+                    يؤدي حذف الحساب إلى إزالة حسابك من يسر نهائيًا.
+                    يجب ألا يكون الحساب مرتبطًا بمريض قبل الحذف.
+                </p>
+            </div>
+
+            <button type="button"
+                    id="deleteAccountBtn"
+                    class="delete-account-btn">
+
+                <span class="material-symbols-rounded">delete</span>
+                حذف الحساب
+            </button>
+
+        </section>
+
+    </div>
+
+</main>
+
+<script th:src="@{/js/caregiver-profile.js}"></script>
+
+</body>
+</html>

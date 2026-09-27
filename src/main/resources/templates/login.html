@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar"
+      dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل الدخول | يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav th:replace="~{base :: navbar}"></nav>
+
+
+<!-- Login -->
+<main class="auth-page">
+
+    <div class="auth-card">
+
+        <img class="auth-logo"
+             th:src="@{/images/yusr-logo.png}"
+             alt="شعار يسر">
+
+        <h1>تسجيل الدخول</h1>
+
+        <p class="auth-subtitle">
+            مرحباً بك في يسر
+        </p>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+
+                <input type="email"
+                       id="email"
+                       placeholder="example@email.com"
+                       required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+
+                <input type="password"
+                       id="password"
+                       placeholder="أدخل كلمة المرور"
+                       required>
+            </div>
+
+
+            <p id="loginMessage" class="form-message"></p>
+
+
+            <button type="submit" class="auth-btn">
+                تسجيل الدخول
+            </button>
+
+        </form>
+
+
+        <p class="auth-switch">
+            ليس لديك حساب؟
+
+            <a th:href="@{/register}">
+                إنشاء حساب
+            </a>
+        </p>
+
+    </div>
+
+</main>
+
+
+<script th:src="@{/js/base.js}"></script>
+<script th:src="@{/js/login.js}"></script>
+
+</body>
+</html>

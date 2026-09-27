@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ar"
+      dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>لوحة التحكم | يسر</title>
+
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- =========================
+         Sidebar
+         ========================= -->
+    <aside class="sidebar">
+
+        <a th:href="@{/}" class="sidebar-logo">
+            <img th:src="@{/images/yusr-logo.png}" alt="شعار يسر">
+        </a>
+
+        <nav class="sidebar-menu">
+
+            <a href="/dashboard" class="menu-item active">
+                <span class="material-symbols-rounded">dashboard</span>
+                لوحة التحكم
+
+            </a>
+
+            <a href="/patient-details" class="menu-item">
+                <span class="material-symbols-rounded">personal_injury</span>
+                بيانات المريض
+            </a>
+
+            <a href="/medications" class="menu-item">
+                <span class="material-symbols-rounded">medication</span>
+                الأدوية
+            </a>
+
+            <a href="/care-tasks" class="menu-item">
+                <span class="material-symbols-rounded">task_alt</span>
+                المهام
+            </a>
+
+            <a href="/health-readings" class="menu-item">
+                <span class="material-symbols-rounded">monitor_heart</span>
+                القراءات الصحية
+            </a>
+
+            <a href="/incidents" class="menu-item">
+                <span class="material-symbols-rounded">warning</span>
+                الحوادث
+            </a>
+
+            <a href="/care-team" class="menu-item">
+                <span class="material-symbols-rounded">groups</span>
+                مقدمو الرعاية
+            </a>
+
+            <a href="/smart-summary" class="menu-item">
+                <span class="material-symbols-rounded">auto_awesome</span>
+                الملخص الذكي
+            </a>
+
+        </nav>
+
+        <button id="logoutBtn" class="logout-btn">
+            <span class="material-symbols-rounded">logout</span>
+            تسجيل الخروج
+        </button>
+
+    </aside>
+
+
+    <!-- =========================
+         Main Content
+         ========================= -->
+    <main class="dashboard-main">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="welcome-text">
+                    مرحباً بك في يسر
+                </p>
+
+                <h1 id="caregiverName">
+                    مرحباً
+                </h1>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <div class="caregiver-badge">
+
+                    <span class="material-symbols-rounded">
+                        volunteer_activism
+                    </span>
+
+                    <div>
+                        <span>
+                            مقدم الرعاية
+                        </span>
+
+                        <strong id="caregiverRole">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <a href="/caregiver-profile" class="profile-badge">
+
+                    <span class="material-symbols-rounded">
+                        account_circle
+                    </span>
+
+                    <div>
+                        <span>
+                            الحساب
+                        </span>
+
+                        <strong>
+                                        الملف الشخصي
+                        </strong>
+                    </div>
+
+                </a>
+
+            </div>
+
+        </header>
+        <!-- =========================
+     Pending Care Invitation
+     ========================= -->
+        <section id="invitationAlert"
+                 class="invitation-alert hidden">
+
+            <div class="invitation-alert-icon">
+        <span class="material-symbols-rounded">
+            mail
+        </span>
+            </div>
+
+            <div class="invitation-alert-content">
+
+        <span class="invitation-label">
+            دعوة رعاية جديدة
+        </span>
+
+                <h3>
+                    لديك دعوة للانضمام إلى فريق رعاية
+                </h3>
+
+                <p>
+                    تمت دعوتك لرعاية
+                    <strong id="invitationPatientName">-</strong>
+                    بدور
+                    <strong id="invitationRoleName">-</strong>
+                </p>
+
+            </div>
+
+            <a href="/care-team"
+               class="invitation-alert-btn">
+
+                عرض الدعوة
+
+                <span class="material-symbols-rounded">
+            arrow_back
+        </span>
+
+            </a>
+
+        </section>
+
+
+        <!-- =========================
+     Pending Handover
+     ========================= -->
+        <section id="handoverAlert"
+                 class="invitation-alert hidden">
+
+            <div class="invitation-alert-icon">
+        <span class="material-symbols-rounded">
+            swap_horiz
+        </span>
+            </div>
+
+            <div class="invitation-alert-content">
+
+        <span class="invitation-label">
+            طلب تسليم رعاية
+        </span>
+
+                <h3>
+                    لديك طلب لتولي مسؤولية الرعاية
+                </h3>
+
+                <p>
+                    أرسل لك
+                    <strong id="handoverSenderName">-</strong>
+                    طلبًا لاستلام مسؤولية الرعاية
+                </p>
+
+            </div>
+
+            <a href="/care-team"
+               class="invitation-alert-btn">
+
+                عرض الطلب
+
+                <span class="material-symbols-rounded">
+            arrow_back
+        </span>
+
+            </a>
+
+        </section>
+        <!-- =========================
+             Patient Exists
+             ========================= -->
+        <section id="patientSection"
+                 class="patient-section hidden">
+
+
+            <!-- Patient Title -->
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        المريض الحالي
+                    </span>
+
+                    <h2 id="patientName">
+                        -
+                    </h2>
+
+                </div>
+
+
+                <div class="patient-actions">
+
+
+                    <span id="patientStatus"
+                          class="status-badge">
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Patient Card -->
+            <div class="patient-card">
+
+                <div class="patient-avatar">
+
+                    <span class="material-symbols-rounded">
+                        person
+                    </span>
+
+                </div>
+
+
+                <div class="patient-info">
+
+                    <div>
+
+                        <span>
+                            رقم المريض
+                        </span>
+
+                        <strong id="patientCode">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            الجنس
+                        </span>
+
+                        <strong id="patientGender">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            فصيلة الدم
+                        </span>
+
+                        <strong id="bloodType">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            تاريخ الميلاد
+                        </span>
+
+                        <strong id="dateOfBirth">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 Quick Access
+                 ========================= -->
+            <div class="dashboard-cards">
+
+
+                <!-- Medications -->
+                <a href="/medications"
+                   class="dashboard-card">
+
+                    <div class="card-icon">
+
+                        <span class="material-symbols-rounded">
+                            medication
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        الأدوية
+                    </h3>
+
+                    <p>
+                        متابعة الأدوية والجداول والجرعات.
+                    </p>
+
+                </a>
+
+
+                <!-- Tasks -->
+                <a href="/care-tasks"
+                   class="dashboard-card">
+
+                    <div class="card-icon">
+
+                        <span class="material-symbols-rounded">
+                            task_alt
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        المهام اليومية
+                    </h3>
+
+                    <p>
+                        متابعة مهام الرعاية اليومية.
+                    </p>
+
+                </a>
+
+
+                <!-- Health Readings -->
+                <a href="/health-readings"
+                   class="dashboard-card">
+
+                    <div class="card-icon">
+
+                        <span class="material-symbols-rounded">
+                            monitor_heart
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        القراءات الصحية
+                    </h3>
+
+                    <p>
+                        متابعة آخر القراءات الصحية.
+                    </p>
+
+                </a>
+
+
+                <!-- AI Summary -->
+                <a href="/smart-summary"
+                   class="dashboard-card">
+
+                    <div class="card-icon">
+
+                        <span class="material-symbols-rounded">
+                            auto_awesome
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        الملخص الذكي
+                    </h3>
+
+                    <p>
+                        عرض أهم مستجدات حالة المريض.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             No Patient
+             ========================= -->
+        <section id="noPatientSection" class="no-patient hidden">
+
+            <div class="no-patient-icon">
+                <span class="material-symbols-rounded">person_add</span>
+            </div>
+
+            <h2>ابدأ رحلة الرعاية</h2>
+
+            <p>
+                لا يوجد مريض مرتبط بحسابك حالياً.
+                يمكنك إضافة مريض جديد أو ربط سجل مريض موجود.
+            </p>
+
+            <div id="noPatientActions" class="no-patient-actions">
+
+                <button id="addPatientBtn" class="add-patient-btn">
+                    <span class="material-symbols-rounded">person_add</span>
+                    إضافة مريض جديد
+                </button>
+
+                <button id="openLinkPatientBtn" class="link-patient-btn">
+                    <span class="material-symbols-rounded">link</span>
+                    ربط مريض موجود
+                </button>
+
+            </div>
+
+            <div id="pendingPatientNotice" class="pending-patient-notice hidden">
+                <span class="material-symbols-rounded">mail</span>
+                لديك دعوة رعاية معلقة. يرجى قبول أو رفض الدعوة أولاً.
+            </div>
+
+            <div id="linkPatientBox" class="link-patient-box hidden">
+
+                <div class="link-patient-header">
+                    <span class="material-symbols-rounded">link</span>
+                    <h3>ربط مريض موجود</h3>
+                </div>
+
+                <p>
+                    أدخل رقم المريض لربط حسابك بسجل مريض غير نشط.
+                </p>
+
+                <label for="linkPatientCode">رقم المريض</label>
+
+                <input
+                        type="text"
+                        id="linkPatientCode"
+                        placeholder="YUSR-P-XXXXXX"
+                        autocomplete="off"
+                >
+
+                <p id="linkPatientMessage" class="link-patient-message"></p>
+
+                <div class="link-patient-actions">
+
+                    <button type="button"
+                            id="cancelLinkPatientBtn"
+                            class="cancel-link-btn">
+                        إلغاء
+                    </button>
+
+                    <button type="button"
+                            id="linkPatientBtn"
+                            class="confirm-link-btn">
+                        <span class="material-symbols-rounded">link</span>
+                        ربط المريض
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Backend Errors -->
+        <p id="dashboardMessage"
+           class="dashboard-message">
+        </p>
+
+    </main>
+
+</div>
+
+
+<script th:src="@{/js/dashboard.js}"></script>
+
+</body>
+</html>

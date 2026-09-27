@@ -1,0 +1,1169 @@
+/* =========================
+   YUSR - Care Team
+   ========================= */
+
+.care-team-page {
+    min-height: 100vh;
+    background: #F7F5F0;
+    padding: 45px 6%;
+}
+
+.care-team-container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+
+/* =========================
+   Header
+   ========================= */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 17px;
+    color: #82998A;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.page-header h1 {
+    color: #40584D;
+    font-size: 29px;
+    margin-bottom: 7px;
+}
+
+.page-header p {
+    color: #849089;
+    font-size: 14px;
+}
+
+
+/* =========================
+   Buttons
+   ========================= */
+
+.primary-btn,
+.secondary-btn,
+.danger-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 11px 18px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.primary-btn {
+    background: #40584D;
+    border: 1px solid #40584D;
+    color: #FFFFFF;
+}
+
+.primary-btn:hover {
+    background: #344B3F;
+}
+
+.secondary-btn {
+    background: #FFFFFF;
+    border: 1px solid #DCE3DD;
+    color: #596B61;
+}
+
+.secondary-btn:hover {
+    background: #F4F6F3;
+}
+
+.danger-btn {
+    background: #FFF9F9;
+    border: 1px solid #E3C9C9;
+    color: #A45D5D;
+}
+
+.danger-btn:hover {
+    background: #FBEEEE;
+}
+
+.danger-text {
+    color: #A45D5D;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   Summary
+   ========================= */
+
+.team-summary {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 24px 27px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    background: #40584D;
+    color: #FFFFFF;
+}
+
+.summary-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,.14);
+}
+
+.summary-icon .material-symbols-rounded {
+    font-size: 30px;
+}
+
+.team-summary span {
+    display: block;
+    opacity: .75;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.team-summary h2 {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.team-summary p {
+    font-size: 13px;
+    opacity: .8;
+}
+
+
+/* =========================
+   Pending Invitation
+   ========================= */
+
+.invitation-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 27px;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    border: 1px solid #D9E2DB;
+    border-radius: 15px;
+}
+
+.invitation-icon {
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E8EDE9;
+    color: #40584D;
+    border-radius: 50%;
+}
+
+.invitation-icon .material-symbols-rounded {
+    font-size: 28px;
+}
+
+.invitation-content {
+    flex: 1;
+}
+
+.section-label {
+    display: block;
+    color: #82998A;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.invitation-content h2 {
+    color: #40584D;
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.invitation-content > p {
+    color: #7D8982;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.invitation-details {
+    display: flex;
+    gap: 35px;
+    margin: 20px 0;
+}
+
+.invitation-details div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.invitation-details span {
+    color: #909992;
+    font-size: 11px;
+}
+
+.invitation-details strong {
+    color: #40584D;
+    font-size: 14px;
+}
+
+.invitation-actions {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* =========================
+   Team Card
+   ========================= */
+
+.team-card {
+    padding: 28px;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    border: 1px solid #E8E4DE;
+    border-radius: 15px;
+}
+
+.section-heading {
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    color: #40584D;
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.section-heading p {
+    color: #89938E;
+    font-size: 13px;
+}
+
+
+/* =========================
+   Caregiver
+   ========================= */
+
+.caregivers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.caregiver-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 17px;
+    border: 1px solid #E8ECE8;
+    border-radius: 12px;
+    background: #FCFCFA;
+}
+
+.caregiver-item.me {
+    border-color: #B9C9BE;
+    background: #F7F9F7;
+}
+
+.caregiver-avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #E8EDE9;
+    color: #40584D;
+}
+
+.caregiver-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.caregiver-name-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.caregiver-info h3 {
+    color: #40584D;
+    font-size: 15px;
+}
+
+.caregiver-info p {
+    color: #89938E;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.role-badge,
+.current-badge,
+.me-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.role-badge {
+    color: #53685B;
+    background: #E8EDE9;
+}
+
+.current-badge {
+    color: #82684F;
+    background: #F4E9DE;
+}
+
+.me-badge {
+    color: #40584D;
+    background: #DDE7E0;
+}
+
+.caregiver-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.small-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 11px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    border: 1px solid #DDE4DF;
+    color: #596B61;
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.small-btn:hover {
+    background: #F2F5F2;
+}
+
+.small-btn.danger {
+    color: #A45D5D;
+    border-color: #E6D1D1;
+}
+
+
+/* =========================
+   Handover
+   ========================= */
+
+.handover-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.handover-section-header .section-heading {
+    flex: 1;
+}
+
+.current-caregiver-box {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 16px;
+    margin-bottom: 22px;
+    background: #F7F9F7;
+    border: 1px solid #DCE5DE;
+    border-radius: 11px;
+}
+
+.current-caregiver-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #40584D;
+    background: #E1E9E3;
+    border-radius: 50%;
+}
+
+.current-caregiver-box div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.current-caregiver-box span {
+    color: #89938E;
+    font-size: 10px;
+}
+
+.current-caregiver-box strong {
+    color: #40584D;
+    font-size: 14px;
+}
+
+
+/* Incoming Handover */
+
+.incoming-handover {
+    display: flex;
+    align-items: flex-start;
+    gap: 17px;
+    padding: 22px;
+    margin-bottom: 25px;
+    background: #FBF8F3;
+    border: 1px solid #E7D8C7;
+    border-radius: 12px;
+}
+
+.handover-alert-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #82684F;
+    background: #F1E4D6;
+    border-radius: 50%;
+}
+
+.handover-alert-icon .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.handover-alert-content {
+    flex: 1;
+}
+
+.handover-alert-content h3 {
+    margin-bottom: 6px;
+    color: #40584D;
+    font-size: 16px;
+}
+
+.handover-alert-content > p {
+    color: #7D8982;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.handover-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.handover-details div {
+    padding: 11px;
+    background: rgba(255,255,255,.65);
+    border-radius: 8px;
+}
+
+.handover-details span {
+    display: block;
+    margin-bottom: 5px;
+    color: #929991;
+    font-size: 9px;
+}
+
+.handover-details strong {
+    color: #40584D;
+    font-size: 11px;
+}
+
+.handover-summary-box {
+    padding: 14px;
+    margin-bottom: 16px;
+    background: #FFFFFF;
+    border: 1px solid #EBE2D8;
+    border-radius: 9px;
+}
+
+.handover-summary-box span {
+    display: block;
+    margin-bottom: 6px;
+    color: #82998A;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.handover-summary-box p {
+    color: #596B61;
+    font-size: 12px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.handover-alert-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Overdue Handover */
+
+.incoming-handover.overdue-handover {
+    background: #FFF7F5;
+    border-color: #E5C4BE;
+}
+
+.incoming-handover.overdue-handover .handover-alert-icon {
+    color: #A45D5D;
+    background: #F3E2E2;
+}
+
+.overdue-handover-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    margin-right: 6px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #F3E2E2;
+    color: #A45D5D;
+    font-size: 9px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+/* Handover History */
+
+.handover-history {
+    padding-top: 22px;
+    border-top: 1px solid #ECEDE9;
+}
+
+.handover-history-heading {
+    margin-bottom: 15px;
+}
+
+.handover-history-heading h3 {
+    margin-bottom: 4px;
+    color: #40584D;
+    font-size: 14px;
+}
+
+.handover-history-heading p {
+    color: #89938E;
+    font-size: 11px;
+}
+
+.sent-handovers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.handover-item {
+    padding: 15px;
+    background: #FCFCFA;
+    border: 1px solid #E6EBE7;
+    border-radius: 10px;
+}
+
+.handover-item-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.handover-receiver {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.handover-receiver-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #40584D;
+    background: #E8EDE9;
+    border-radius: 50%;
+}
+
+.handover-receiver-icon .material-symbols-rounded {
+    font-size: 17px;
+}
+
+.handover-receiver span {
+    display: block;
+    margin-bottom: 3px;
+    color: #89938E;
+    font-size: 9px;
+}
+
+.handover-receiver strong {
+    color: #40584D;
+    font-size: 12px;
+}
+
+.handover-status {
+    height: fit-content;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.handover-status.pending {
+    color: #876D4F;
+    background: #F4EADD;
+}
+
+.handover-status.accepted {
+    color: #527A60;
+    background: #E5EFE8;
+}
+
+.handover-status.rejected {
+    color: #A45D5D;
+    background: #F3E2E2;
+}
+
+.handover-item-summary {
+    margin-bottom: 10px;
+    color: #65726B;
+    font-size: 11px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.handover-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.handover-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #89938E;
+    font-size: 9px;
+}
+
+.handover-meta .material-symbols-rounded {
+    color: #82998A;
+    font-size: 13px;
+}
+
+.handover-item-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.small-empty-state {
+    padding: 25px;
+    text-align: center;
+    color: #89938E;
+}
+
+.small-empty-state .material-symbols-rounded {
+    display: block;
+    margin-bottom: 7px;
+    color: #AAB9AF;
+    font-size: 30px;
+}
+
+.small-empty-state p {
+    font-size: 11px;
+}
+
+
+/* =========================
+   Outgoing Invitations
+   ========================= */
+
+.outgoing-invitations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.outgoing-invitation-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+    background: #FCFCFA;
+    border: 1px solid #E6EBE7;
+    border-radius: 11px;
+}
+
+.outgoing-invitation-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #F4EADD;
+    color: #876D4F;
+}
+
+.outgoing-invitation-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.outgoing-invitation-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 7px;
+}
+
+.outgoing-invitation-top strong {
+    color: #40584D;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.pending-invitation-badge {
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #F4EADD;
+    color: #876D4F;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.outgoing-invitation-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.outgoing-invitation-meta > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #89938E;
+    font-size: 11px;
+}
+
+.outgoing-invitation-meta .material-symbols-rounded {
+    color: #82998A;
+    font-size: 15px;
+}
+/* =========================
+   Empty States
+   ========================= */
+
+.empty-state,
+.empty-page-state {
+    text-align: center;
+    padding: 45px 20px;
+    color: #89938E;
+}
+
+.empty-state > .material-symbols-rounded,
+.empty-page-state > .material-symbols-rounded {
+    font-size: 48px;
+    color: #AAB9AF;
+    margin-bottom: 13px;
+}
+
+.empty-state h3,
+.empty-page-state h2 {
+    color: #40584D;
+    margin-bottom: 7px;
+}
+
+.empty-state h3 {
+    font-size: 16px;
+}
+
+.empty-page-state h2 {
+    font-size: 20px;
+}
+
+.empty-state p,
+.empty-page-state p {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+/* =========================
+   Leave
+   ========================= */
+
+.leave-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px 28px;
+    background: #FFFFFF;
+    border: 1px solid #EADDDD;
+    border-radius: 15px;
+}
+
+.leave-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #9A5B5B;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.leave-card p {
+    color: #8D8A88;
+    font-size: 13px;
+}
+
+
+/* =========================
+   Modal
+   ========================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(31, 43, 37, .48);
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 510px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 26px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.15);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    color: #40584D;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.modal-header p {
+    color: #89938E;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: #F4F6F3;
+    color: #596B61;
+    cursor: pointer;
+}
+
+
+/* =========================
+   Form
+   ========================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    color: #40584D;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #DFE4E0;
+    border-radius: 9px;
+    background: #FCFCFA;
+    color: #2F3E37;
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+}
+
+.form-group textarea {
+    line-height: 1.7;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #82998A;
+    box-shadow: 0 0 0 3px rgba(130,153,138,.12);
+}
+
+.form-group small {
+    color: #89938E;
+    font-size: 11px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 23px;
+}
+
+.selected-caregiver {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #F7F9F7;
+    border-radius: 9px;
+}
+
+.selected-caregiver span {
+    color: #89938E;
+    font-size: 12px;
+}
+
+.selected-caregiver strong {
+    color: #40584D;
+    font-size: 13px;
+}
+
+.warning-box,
+.leave-warning {
+    padding: 14px;
+    background: #FBF6F1;
+    border: 1px solid #EBDCCC;
+    border-radius: 9px;
+    color: #856C54;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.leave-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.leave-warning .material-symbols-rounded {
+    flex-shrink: 0;
+    font-size: 20px;
+}
+
+.handover-info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 13px;
+    background: #F3F6F3;
+    border: 1px solid #DFE7E1;
+    border-radius: 9px;
+    color: #65766B;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.handover-info-box .material-symbols-rounded {
+    flex-shrink: 0;
+    color: #82998A;
+    font-size: 18px;
+}
+
+
+/* =========================
+   Messages
+   ========================= */
+
+.form-message,
+.modal-message {
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.form-message {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.modal-message {
+    margin-top: 13px;
+}
+
+.success {
+    color: #527A60;
+}
+
+.error {
+    color: #A64B4B;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 750px) {
+
+    .care-team-page {
+        padding: 28px 18px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .caregiver-item {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .caregiver-actions {
+        width: 100%;
+        padding-right: 63px;
+    }
+
+    .leave-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .handover-section-header {
+        flex-direction: column;
+    }
+
+    .handover-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .outgoing-invitation-item {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .outgoing-invitation-item > .small-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .invitation-card {
+        flex-direction: column;
+    }
+
+    .invitation-details {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .invitation-actions,
+    .modal-actions,
+    .handover-alert-actions {
+        flex-direction: column;
+    }
+
+    .invitation-actions button,
+    .modal-actions button,
+    .handover-alert-actions button {
+        width: 100%;
+    }
+
+    .caregiver-actions {
+        padding-right: 0;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .small-btn {
+        justify-content: center;
+    }
+
+    .incoming-handover {
+        flex-direction: column;
+    }
+
+    .handover-item-top {
+        flex-direction: column;
+    }
+
+    .handover-item-actions {
+        flex-direction: column;
+    }
+
+    .handover-item-actions button {
+        justify-content: center;
+    }
+}

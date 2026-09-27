@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>القراءات الصحية | يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/health-readings.css}">
+</head>
+
+<body>
+
+<main class="health-page">
+
+    <div class="health-container">
+
+        <!-- Header -->
+        <header class="page-header">
+
+            <div>
+                <a th:href="@{/dashboard}" class="back-link">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                    العودة إلى لوحة التحكم
+                </a>
+
+                <h1>القراءات الصحية</h1>
+
+                <p>
+                    تسجيل ومتابعة القياسات الصحية للمريض
+                </p>
+            </div>
+
+            <button type="button"
+                    id="addReadingBtn"
+                    class="primary-btn">
+
+                <span class="material-symbols-rounded">add</span>
+                إضافة قراءة
+            </button>
+
+        </header>
+
+
+        <!-- Latest Readings -->
+        <section class="latest-section">
+
+            <div class="section-heading">
+
+                <span class="section-label">نظرة سريعة</span>
+
+                <h2>أحدث القراءات</h2>
+
+                <p>
+                    آخر قراءة مسجلة لكل نوع من القياسات الصحية
+                </p>
+
+            </div>
+
+
+            <div class="latest-grid">
+
+                <!-- Blood Pressure -->
+                <article class="latest-card">
+
+                    <div class="latest-card-top">
+
+                        <div class="reading-icon">
+                            <span class="material-symbols-rounded">
+                                blood_pressure
+                            </span>
+                        </div>
+
+                        <span id="latestBloodPressureStatus"
+                              class="status-badge hidden">
+                        </span>
+
+                    </div>
+
+                    <div class="latest-card-content">
+
+                        <span class="reading-name">
+                            ضغط الدم
+                        </span>
+
+                        <strong id="latestBloodPressure">
+                            --
+                        </strong>
+
+                        <small id="latestBloodPressureTime">
+                            لا توجد قراءة
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Glucose -->
+                <article class="latest-card">
+
+                    <div class="latest-card-top">
+
+                        <div class="reading-icon">
+                            <span class="material-symbols-rounded">
+                                glucose
+                            </span>
+                        </div>
+
+                        <span id="latestGlucoseStatus"
+                              class="status-badge hidden">
+                        </span>
+
+                    </div>
+
+                    <div class="latest-card-content">
+
+                        <span class="reading-name">
+                            سكر الدم
+                        </span>
+
+                        <strong id="latestGlucose">
+                            --
+                        </strong>
+
+                        <span id="latestGlucoseContext"
+                              class="latest-context hidden">
+                        </span>
+
+                        <small id="latestGlucoseTime">
+                            لا توجد قراءة
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Temperature -->
+                <article class="latest-card">
+
+                    <div class="latest-card-top">
+
+                        <div class="reading-icon">
+                            <span class="material-symbols-rounded">
+                                device_thermostat
+                            </span>
+                        </div>
+
+                        <span id="latestTemperatureStatus"
+                              class="status-badge hidden">
+                        </span>
+
+                    </div>
+
+                    <div class="latest-card-content">
+
+                        <span class="reading-name">
+                            درجة الحرارة
+                        </span>
+
+                        <strong id="latestTemperature">
+                            --
+                        </strong>
+
+                        <small id="latestTemperatureTime">
+                            لا توجد قراءة
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Weight -->
+                <article class="latest-card">
+
+                    <div class="latest-card-top">
+
+                        <div class="reading-icon">
+                            <span class="material-symbols-rounded">
+                                monitor_weight
+                            </span>
+                        </div>
+
+                        <span id="latestWeightStatus"
+                              class="status-badge hidden">
+                        </span>
+
+                    </div>
+
+                    <div class="latest-card-content">
+
+                        <span class="reading-name">
+                            الوزن
+                        </span>
+
+                        <strong id="latestWeight">
+                            --
+                        </strong>
+
+                        <small id="latestWeightTime">
+                            لا توجد قراءة
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Heart Rate -->
+                <article class="latest-card">
+
+                    <div class="latest-card-top">
+
+                        <div class="reading-icon">
+                            <span class="material-symbols-rounded">
+                                cardiology
+                            </span>
+                        </div>
+
+                        <span id="latestHeartRateStatus"
+                              class="status-badge hidden">
+                        </span>
+
+                    </div>
+
+                    <div class="latest-card-content">
+
+                        <span class="reading-name">
+                            معدل نبض القلب
+                        </span>
+
+                        <strong id="latestHeartRate">
+                            --
+                        </strong>
+
+                        <small id="latestHeartRateTime">
+                            لا توجد قراءة
+                        </small>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Attention Readings -->
+        <section class="attention-section">
+
+            <div class="section-heading attention-heading">
+
+                <div>
+                    <span class="section-label">
+                        متابعة
+                    </span>
+
+                    <h2>
+                        قراءات تحتاج الانتباه
+                    </h2>
+
+                    <p>
+                        القراءات المصنفة خارج النطاق الطبيعي حسب نوع القياس
+                    </p>
+                </div>
+
+                <div id="attentionCount"
+                     class="attention-count hidden">
+                    0
+                </div>
+
+            </div>
+
+
+            <div id="attentionReadings"
+                 class="attention-grid">
+            </div>
+
+
+            <div id="emptyAttention"
+                 class="attention-empty hidden">
+
+                <span class="material-symbols-rounded">
+                    verified
+                </span>
+
+                <div>
+                    <h3>لا توجد قراءات تحتاج الانتباه</h3>
+
+                    <p>
+                        لا توجد حاليًا قراءات مصنفة كمنخفضة أو مرتفعة.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- History -->
+        <section class="content-card">
+
+            <div class="section-heading history-heading">
+
+                <div>
+                    <span class="section-label">
+                        السجل الصحي
+                    </span>
+
+                    <h2>سجل القراءات</h2>
+
+                    <p>
+                        استعرضي جميع القياسات المسجلة واستخدمي الفلاتر للوصول إلى القراءات المطلوبة
+                    </p>
+                </div>
+
+                <div class="history-result">
+
+                    <span class="material-symbols-rounded">
+                        monitoring
+                    </span>
+
+                    <span id="historyResultCount">
+                        0 قراءة
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Filters -->
+            <div class="filters-panel">
+
+                <div class="filter-group">
+
+                    <label for="periodFilter">
+                        الفترة
+                    </label>
+
+                    <select id="periodFilter">
+
+                        <option value="all">
+                            كل الفترات
+                        </option>
+
+                        <option value="today">
+                            اليوم
+                        </option>
+
+                        <option value="7">
+                            آخر 7 أيام
+                        </option>
+
+                        <option value="30">
+                            آخر 30 يوم
+                        </option>
+
+                        <option value="custom">
+                            فترة مخصصة
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="readingFilter">
+                        نوع القراءة
+                    </label>
+
+                    <select id="readingFilter">
+
+                        <option value="all">
+                            جميع الأنواع
+                        </option>
+
+                        <option value="blood_pressure">
+                            ضغط الدم
+                        </option>
+
+                        <option value="glucose">
+                            سكر الدم
+                        </option>
+
+                        <option value="temperature">
+                            درجة الحرارة
+                        </option>
+
+                        <option value="weight">
+                            الوزن
+                        </option>
+
+                        <option value="heart_rate">
+                            معدل نبض القلب
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="statusFilter">
+                        حالة القراءة
+                    </label>
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            جميع الحالات
+                        </option>
+
+                        <option value="normal">
+                            طبيعي
+                        </option>
+
+                        <option value="low">
+                            منخفض
+                        </option>
+
+                        <option value="elevated">
+                            مرتفع قليلًا
+                        </option>
+
+                        <option value="high">
+                            مرتفع
+                        </option>
+
+                        <option value="critical">
+                            شديد الارتفاع
+                        </option>
+
+                        <option value="not_classified">
+                            غير مصنف
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div id="glucoseFilterGroup"
+                     class="filter-group hidden">
+
+                    <label for="glucoseFilter">
+                        قياس السكر
+                    </label>
+
+                    <select id="glucoseFilter">
+
+                        <option value="all">
+                            الكل
+                        </option>
+
+                        <option value="fasting">
+                            صائم
+                        </option>
+
+                        <option value="after_meal">
+                            بعد الوجبة
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="sortFilter">
+                        الترتيب
+                    </label>
+
+                    <select id="sortFilter">
+
+                        <option value="newest">
+                            الأحدث أولًا
+                        </option>
+
+                        <option value="oldest">
+                            الأقدم أولًا
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Custom Date -->
+            <div id="customDateFilters"
+                 class="custom-date-filters hidden">
+
+                <div class="filter-group">
+
+                    <label for="fromDateFilter">
+                        من تاريخ
+                    </label>
+
+                    <input type="date"
+                           id="fromDateFilter">
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="toDateFilter">
+                        إلى تاريخ
+                    </label>
+
+                    <input type="date"
+                           id="toDateFilter">
+
+                </div>
+
+            </div>
+
+
+            <div class="filters-footer">
+
+                <button type="button"
+                        id="resetFiltersBtn"
+                        class="reset-filter-btn">
+
+                    <span class="material-symbols-rounded">
+                        restart_alt
+                    </span>
+
+                    إعادة تعيين الفلاتر
+                </button>
+
+            </div>
+
+
+            <!-- Reading List -->
+            <div id="readingsList"
+                 class="readings-list">
+            </div>
+
+
+            <div id="emptyReadings"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    monitoring
+                </span>
+
+                <h3 id="emptyReadingsTitle">
+                    لا توجد قراءات صحية
+                </h3>
+
+                <p id="emptyReadingsText">
+                    عند تسجيل أول قراءة صحية ستظهر هنا.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <p id="pageMessage"
+           class="form-message"
+           role="status"
+           aria-live="polite">
+        </p>
+
+    </div>
+
+</main>
+
+
+<!-- Add / Edit Modal -->
+<div id="readingModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="readingModalTitle">
+                    إضافة قراءة صحية
+                </h2>
+
+                <p id="readingModalDescription">
+                    سجلي القياس الصحي للمريض
+                </p>
+            </div>
+
+            <button type="button"
+                    id="closeReadingModal"
+                    class="icon-btn"
+                    aria-label="إغلاق">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <form id="readingForm">
+
+            <!-- Type -->
+            <div class="form-group">
+
+                <label for="readingType">
+                    نوع القراءة
+                </label>
+
+                <select id="readingType"
+                        required>
+
+                    <option value="">
+                        اختاري نوع القراءة
+                    </option>
+
+                    <option value="blood_pressure">
+                        ضغط الدم
+                    </option>
+
+                    <option value="glucose">
+                        سكر الدم
+                    </option>
+
+                    <option value="temperature">
+                        درجة الحرارة
+                    </option>
+
+                    <option value="weight">
+                        الوزن
+                    </option>
+
+                    <option value="heart_rate">
+                        معدل نبض القلب
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Glucose Context -->
+            <div id="glucoseMeasurementGroup"
+                 class="form-group hidden">
+
+                <label for="glucoseMeasurementType">
+                    وقت قياس السكر
+                </label>
+
+                <select id="glucoseMeasurementType">
+
+                    <option value="">
+                        اختاري نوع القياس
+                    </option>
+
+                    <option value="fasting">
+                        صائم
+                    </option>
+
+                    <option value="after_meal">
+                        بعد الوجبة
+                    </option>
+
+                </select>
+
+                <small>
+                    يساعد نوع القياس النظام على تصنيف قراءة السكر بشكل مناسب.
+                </small>
+
+            </div>
+
+
+            <!-- Normal Value -->
+            <div id="singleValueGroup"
+                 class="form-group hidden">
+
+                <label for="readingValue"
+                       id="readingValueLabel">
+                    قيمة القراءة
+                </label>
+
+                <div class="input-with-unit">
+
+                    <input type="number"
+                           id="readingValue"
+                           min="0.01"
+                           step="0.01"
+                           placeholder="أدخلي القيمة">
+
+                    <span id="readingUnit">
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Blood Pressure -->
+            <div id="bloodPressureGroup"
+                 class="form-grid hidden">
+
+                <div class="form-group">
+
+                    <label for="systolicValue">
+                        الضغط الانقباضي
+                    </label>
+
+                    <div class="input-with-unit">
+
+                        <input type="number"
+                               id="systolicValue"
+                               min="0.01"
+                               step="0.01"
+                               placeholder="مثال: 120">
+
+                        <span>mmHg</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="diastolicValue">
+                        الضغط الانبساطي
+                    </label>
+
+                    <div class="input-with-unit">
+
+                        <input type="number"
+                               id="diastolicValue"
+                               min="0.01"
+                               step="0.01"
+                               placeholder="مثال: 80">
+
+                        <span>mmHg</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Measured At -->
+            <div class="form-group">
+
+                <label for="measuredAt">
+                    وقت القياس
+                </label>
+
+                <input type="datetime-local"
+                       id="measuredAt"
+                       max="">
+
+                <small>
+                    إذا لم يتم تحديد الوقت، سيسجل النظام الوقت الحالي.
+                </small>
+
+            </div>
+
+
+            <!-- Notes -->
+            <div class="form-group">
+
+                <label for="readingNotes">
+                    ملاحظات
+                </label>
+
+                <textarea id="readingNotes"
+                          maxlength="255"
+                          rows="4"
+                          placeholder="أي ملاحظات مرتبطة بالقراءة"></textarea>
+
+                <small>
+                    اختياري — الحد الأقصى 255 حرفًا
+                </small>
+
+            </div>
+
+
+            <div class="classification-note">
+
+                <span class="material-symbols-rounded">
+                    info
+                </span>
+
+                <p>
+                    يتم تصنيف قراءة ضغط الدم أو السكر تلقائيًا بعد الحفظ،
+                    ولا تحتاجين إلى تحديد الحالة يدويًا.
+                </p>
+
+            </div>
+
+
+            <p id="readingFormMessage"
+               class="modal-message"
+               role="status"
+               aria-live="polite">
+            </p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelReadingBtn"
+                        class="secondary-btn">
+                    إلغاء
+                </button>
+
+                <button type="submit"
+                        id="saveReadingBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        save
+                    </span>
+
+                    حفظ القراءة
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script th:src="@{/js/health-readings.js}"></script>
+
+</body>
+</html>

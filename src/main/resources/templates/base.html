@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar"
+      dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+</head>
+
+<body>
+
+<!-- Navbar المشترك -->
+<nav class="navbar" th:fragment="navbar">
+
+    <a th:href="@{/}" class="nav-logo">
+        <img th:src="@{/images/yusr-logo.png}" alt="شعار يسر">
+    </a>
+
+    <div class="nav-buttons">
+        <a th:href="@{/login}" class="login-btn">
+            تسجيل الدخول
+        </a>
+
+        <a th:href="@{/register}" class="register-btn">
+            إنشاء حساب
+        </a>
+    </div>
+
+</nav>
+
+
+<script th:src="@{/js/base.js}"></script>
+
+</body>
+</html>

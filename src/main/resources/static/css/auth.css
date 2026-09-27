@@ -1,0 +1,149 @@
+/* =========================
+   Login / Register
+   ========================= */
+
+.auth-page {
+    min-height: calc(100vh - 90px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background-color: var(--white);
+    border: 1px solid #ebe7e0;
+    border-radius: 18px;
+    padding: 35px 40px;
+    box-shadow: 0 12px 40px rgba(64, 88, 77, 0.08);
+}
+
+.auth-logo {
+    display: block;
+    width: 135px;
+    margin: 0 auto 10px;
+}
+
+.auth-card h1 {
+    color: var(--primary);
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    color: var(--secondary);
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px 14px;
+
+    border: 1px solid #dfe4e0;
+    border-radius: 8px;
+
+    background-color: #fcfcfa;
+    color: var(--text);
+
+    font-size: 14px;
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(130, 153, 138, 0.12);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 13px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: var(--primary);
+    color: var(--white);
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.auth-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+.auth-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.auth-switch {
+    text-align: center;
+    color: #7a8580;
+
+    font-size: 14px;
+    margin-top: 22px;
+}
+
+.auth-switch a {
+    color: var(--primary);
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+.form-message {
+    min-height: 20px;
+    margin-bottom: 8px;
+
+    font-size: 13px;
+    text-align: center;
+}
+
+.form-message.error {
+    color: #a64b4b;
+}
+
+.form-message.success {
+    color: #527a60;
+}
+
+
+@media (max-width: 550px) {
+
+    .auth-card {
+        padding: 30px 22px;
+    }
+
+    .auth-logo {
+        width: 115px;
+    }
+}

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>مهام الرعاية | يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/care-tasks.css}">
+</head>
+
+<body>
+
+<main class="tasks-page">
+
+    <div class="tasks-container">
+
+        <!-- Header -->
+        <header class="page-header">
+
+            <div>
+                <a th:href="@{/dashboard}" class="back-link">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                    العودة إلى لوحة التحكم
+                </a>
+
+                <h1>مهام الرعاية</h1>
+
+                <p>
+                    متابعة مهام رعاية المريض ومعرفة ما تم إنجازه وما تبقى
+                </p>
+            </div>
+
+            <button type="button"
+                    id="addTaskBtn"
+                    class="primary-btn">
+
+                <span class="material-symbols-rounded">add_task</span>
+                إضافة مهمة
+            </button>
+
+        </header>
+
+
+        <!-- Caregiver Status -->
+        <section id="careStatusCard"
+                 class="care-status-card">
+
+            <div class="care-status-icon">
+                <span class="material-symbols-rounded">
+                    volunteer_activism
+                </span>
+            </div>
+
+            <div class="care-status-content">
+                <span>حالة الرعاية الحالية</span>
+                <strong id="careStatusTitle">جاري التحميل...</strong>
+                <p id="careStatusText"></p>
+            </div>
+
+        </section>
+
+
+        <!-- Today Summary -->
+        <section class="task-summary">
+
+            <div class="summary-box">
+                <span class="material-symbols-rounded">
+                    assignment
+                </span>
+
+                <div>
+                    <strong id="todayTotalTasks">0</strong>
+                    <small>مهام اليوم</small>
+                </div>
+            </div>
+
+            <div class="summary-box overdue-summary-box">
+                <span class="material-symbols-rounded">
+                    notification_important
+                </span>
+
+                <div>
+                    <strong id="overdueTasksCount">0</strong>
+                    <small>مهام متأخرة</small>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <span class="material-symbols-rounded">
+                    pending_actions
+                </span>
+
+                <div>
+                    <strong id="todayPendingTasks">0</strong>
+                    <small>متبقية اليوم</small>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <span class="material-symbols-rounded">
+                    task_alt
+                </span>
+
+                <div>
+                    <strong id="todayCompletedTasks">0</strong>
+                    <small>مكتملة اليوم</small>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Overdue Tasks -->
+        <section id="overdueSection"
+                 class="content-card overdue-card hidden">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label overdue-label">
+                        تحتاج إلى متابعة
+                    </span>
+
+                    <h2>
+                        المهام المتأخرة
+                    </h2>
+
+                    <p>
+                        مهام ما زالت قيد الانتظار وقد تجاوز موعدها المحدد
+                    </p>
+                </div>
+
+                <div class="overdue-count-badge">
+                    <span class="material-symbols-rounded">
+                        schedule
+                    </span>
+
+                    <span id="overdueSectionCount">
+                        0 مهام متأخرة
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div id="overdueTasksList"
+                 class="tasks-list">
+            </div>
+
+        </section>
+
+
+        <!-- Today Tasks -->
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">متابعة اليوم</span>
+
+                    <h2>مهام اليوم</h2>
+
+                    <p>
+                        مهام اليوم الحالية وما تم إنجازه أو إلغاؤه خلال اليوم
+                    </p>
+                </div>
+
+                <div class="filter-buttons">
+
+                    <button type="button"
+                            class="filter-btn active"
+                            data-filter="all">
+                        الكل
+                    </button>
+
+                    <button type="button"
+                            class="filter-btn"
+                            data-filter="pending">
+                        المتبقية
+                    </button>
+
+                    <button type="button"
+                            class="filter-btn"
+                            data-filter="completed">
+                        المكتملة
+                    </button>
+
+                    <button type="button"
+                            class="filter-btn"
+                            data-filter="cancelled">
+                        الملغاة
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="todayTasksList"
+                 class="tasks-list">
+            </div>
+
+
+            <div id="emptyTodayTasks"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    event_available
+                </span>
+
+                <h3>لا توجد مهام اليوم</h3>
+
+                <p>
+                    لا توجد مهام رعاية ضمن هذا القسم اليوم.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Upcoming Tasks -->
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">الخطة القادمة</span>
+
+                    <h2>المهام القادمة</h2>
+
+                    <p>
+                        المهام المعلقة المجدولة بعد اليوم
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="upcomingTasksList"
+                 class="tasks-list">
+            </div>
+
+
+            <div id="emptyUpcomingTasks"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    calendar_month
+                </span>
+
+                <h3>لا توجد مهام قادمة</h3>
+
+                <p>
+                    لا توجد مهام مجدولة بعد اليوم.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="tasks-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>سجل المهام</h2>
+                    <p>استعرض المهام السابقة المكتملة والملغاة</p>
+                </div>
+            </div>
+
+            <div class="task-history-filters">
+
+                <button type="button"
+                        class="filter-btn history-filter-btn active"
+                        data-history-filter="all">
+                    الكل
+                </button>
+
+                <button type="button"
+                        class="filter-btn history-filter-btn"
+                        data-history-filter="completed">
+                    المكتملة
+                </button>
+
+                <button type="button"
+                        class="filter-btn history-filter-btn"
+                        data-history-filter="cancelled">
+                    الملغاة
+                </button>
+
+            </div>
+
+            <div id="taskHistoryList"
+                 class="tasks-list"></div>
+
+            <div id="emptyTaskHistory"
+                 class="empty-state hidden">
+                لا توجد مهام في السجل
+            </div>
+
+        </section>
+
+        <p id="pageMessage"
+           class="form-message"
+           role="status"
+           aria-live="polite"></p>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     Add / Edit Task Modal
+     ========================= -->
+
+<div id="taskModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="taskModalTitle">
+                    إضافة مهمة
+                </h2>
+
+                <p id="taskModalDescription">
+                    أضيفي تفاصيل المهمة المطلوبة للمريض
+                </p>
+            </div>
+
+            <button type="button"
+                    id="closeTaskModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <div class="form-group">
+
+                <label for="taskTitle">
+                    عنوان المهمة
+                </label>
+
+                <input type="text"
+                       id="taskTitle"
+                       minlength="3"
+                       maxlength="50"
+                       placeholder="مثال: قياس ضغط الدم"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="taskDescription">
+                    وصف المهمة
+                </label>
+
+                <textarea id="taskDescription"
+                          maxlength="255"
+                          rows="4"
+                          placeholder="تفاصيل إضافية عن المهمة"></textarea>
+
+                <small>
+                    الحد الأقصى 255 حرفًا
+                </small>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="taskDueDateTime">
+                        موعد المهمة
+                    </label>
+
+                    <input type="datetime-local"
+                           id="taskDueDateTime"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="taskPriority">
+                        الأولوية
+                    </label>
+
+                    <select id="taskPriority"
+                            required>
+
+                        <option value="">
+                            اختاري الأولوية
+                        </option>
+
+                        <option value="low">
+                            منخفضة
+                        </option>
+
+                        <option value="medium">
+                            متوسطة
+                        </option>
+
+                        <option value="high">
+                            عالية
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <p id="taskFormMessage"
+               class="modal-message"></p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelTaskBtn"
+                        class="secondary-btn">
+                    إلغاء
+                </button>
+
+                <button type="submit"
+                        id="saveTaskBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        save
+                    </span>
+
+                    حفظ المهمة
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     Complete Task Modal
+     ========================= -->
+
+<div id="completeModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card small-modal">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>إكمال المهمة</h2>
+                <p id="completeTaskName">-</p>
+            </div>
+
+            <button type="button"
+                    id="closeCompleteModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+
+        <div class="complete-info">
+
+            <span class="material-symbols-rounded">
+                task_alt
+            </span>
+
+            <div>
+                <strong>
+                    تسجيل المهمة كمكتملة
+                </strong>
+
+                <p>
+                    سيتم تسجيل الوقت الحالي كوقت لإكمال المهمة.
+                </p>
+            </div>
+
+        </div>
+
+
+        <p id="completeMessage"
+           class="modal-message"></p>
+
+
+        <div class="modal-actions">
+
+            <button type="button"
+                    id="cancelCompleteBtn"
+                    class="secondary-btn">
+                رجوع
+            </button>
+
+            <button type="button"
+                    id="confirmCompleteBtn"
+                    class="primary-btn">
+
+                <span class="material-symbols-rounded">
+                    done
+                </span>
+
+                تأكيد الإكمال
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script th:src="@{/js/care-tasks.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>الملخص الذكي | يسر</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/smart-summary.css}">
+</head>
+
+<body>
+
+<main class="summary-page">
+
+    <div class="summary-container">
+
+        <!-- =========================
+             Page Header
+             ========================= -->
+
+        <header class="page-header">
+
+            <div>
+
+                <a th:href="@{/dashboard}"
+                   class="back-link">
+
+                    <span class="material-symbols-rounded">
+                        arrow_forward
+                    </span>
+
+                    العودة إلى لوحة التحكم
+
+                </a>
+
+                <div class="page-title-row">
+
+                    <div class="page-icon">
+
+                        <span class="material-symbols-rounded">
+                            auto_awesome
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <h1>الملخص الذكي</h1>
+
+                        <p>
+                            ملخص شامل لبيانات الرعاية باستخدام الذكاء الاصطناعي
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             AI Intro
+             ========================= -->
+
+        <section class="ai-intro-card">
+
+            <div class="ai-intro-icon">
+
+                <span class="material-symbols-rounded">
+                    neurology
+                </span>
+
+            </div>
+
+            <div class="ai-intro-content">
+
+                <span class="ai-label">
+                    Yusr AI
+                </span>
+
+                <h2>
+                    صورة أوضح عن حالة المريض
+                </h2>
+
+                <p>
+                    يجمع يسر بيانات الرعاية المسجلة خلال الفترة المحددة،
+                    مثل الأدوية والقراءات الصحية والمهام والحوادث،
+                    ثم يستخدم الذكاء الاصطناعي لإنشاء ملخص موحد وسهل القراءة.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             Latest Summary
+             ========================= -->
+
+        <section class="section-card latest-summary-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        آخر ملخص
+                    </span>
+
+                    <h2>
+                        ملخص حالة المريض
+                    </h2>
+
+                    <p>
+                        آخر ملخص تم إنشاؤه وحفظه في النظام
+                    </p>
+
+                </div>
+
+
+                <button type="button"
+                        id="sendEmailBtn"
+                        class="secondary-btn hidden">
+
+                    <span class="material-symbols-rounded">
+                        mail
+                    </span>
+
+                    إرسال إلى بريدي
+
+                </button>
+
+            </div>
+
+
+            <!-- Loading -->
+
+            <div id="summaryLoading"
+                 class="loading-state">
+
+                <span class="material-symbols-rounded loading-icon">
+                    progress_activity
+                </span>
+
+                <p>
+                    جاري تحميل آخر ملخص...
+                </p>
+
+            </div>
+
+
+            <!-- No Summary -->
+
+            <div id="noSummaryState"
+                 class="empty-summary hidden">
+
+                <div class="empty-summary-icon">
+
+                    <span class="material-symbols-rounded">
+                        auto_awesome
+                    </span>
+
+                </div>
+
+                <h3>
+                    لا يوجد ملخص ذكي حتى الآن
+                </h3>
+
+                <p>
+                    اختاري فترة زمنية من القسم التالي،
+                    وسيجمع يسر بيانات الرعاية المسجلة
+                    لإنشاء أول ملخص باستخدام الذكاء الاصطناعي.
+                </p>
+
+                <button type="button"
+                        id="goToGenerateBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        auto_awesome
+                    </span>
+
+                    إنشاء أول ملخص
+
+                </button>
+
+            </div>
+
+
+            <!-- Summary -->
+
+            <div id="summaryContent"
+                 class="summary-content hidden">
+
+                <div class="summary-meta">
+
+                    <div class="summary-meta-item">
+
+                        <span class="material-symbols-rounded">
+                            date_range
+                        </span>
+
+                        <div>
+
+                            <span>
+                                فترة الملخص
+                            </span>
+
+                            <strong id="summaryPeriod">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-meta-item">
+
+                        <span class="material-symbols-rounded">
+                            schedule
+                        </span>
+
+                        <div>
+
+                            <span>
+                                تاريخ الإنشاء
+                            </span>
+
+                            <strong id="summaryGeneratedAt">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-meta-item">
+
+                        <span class="material-symbols-rounded">
+                            smart_toy
+                        </span>
+
+                        <div>
+
+                            <span>
+                                طريقة الإنشاء
+                            </span>
+
+                            <strong id="summaryGenerationType">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ai-summary-box">
+
+                    <div class="ai-summary-header">
+
+                        <div>
+
+                            <span class="material-symbols-rounded">
+                                auto_awesome
+                            </span>
+
+                            <h3>
+                                ملخص الذكاء الاصطناعي
+                            </h3>
+
+                        </div>
+
+                        <span class="ai-generated-badge">
+                            تم إنشاؤه بالذكاء الاصطناعي
+                        </span>
+
+                    </div>
+
+
+                    <div id="summaryText"
+                         class="summary-text">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p id="summaryMessage"
+               class="form-message"
+               role="status"
+               aria-live="polite"></p>
+
+        </section>
+
+
+        <!-- =========================
+             Generate On Demand
+             ========================= -->
+
+        <section id="generateSection"
+                 class="section-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        On-demand
+                    </span>
+
+                    <h2>
+                        إنشاء ملخص جديد
+                    </h2>
+
+                    <p>
+                        حددي الفترة التي تريدين تلخيص بيانات الرعاية خلالها
+                    </p>
+
+                </div>
+
+                <div class="section-icon">
+
+                    <span class="material-symbols-rounded">
+                        magic_button
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <form id="generateSummaryForm"
+                  class="generate-form">
+
+                <div class="date-fields">
+
+                    <div class="form-group">
+
+                        <label for="fromDate">
+                            من تاريخ
+                        </label>
+
+                        <input type="date"
+                               id="fromDate"
+                               required>
+
+                    </div>
+
+
+                    <div class="date-arrow">
+
+                        <span class="material-symbols-rounded">
+                            arrow_back
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="toDate">
+                            إلى تاريخ
+                        </label>
+
+                        <input type="date"
+                               id="toDate"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="generate-info">
+
+                    <span class="material-symbols-rounded">
+                        info
+                    </span>
+
+                    <p>
+                        سيجمع يسر معلومات المريض والأمراض المزمنة والأدوية
+                        وسجلات الجرعات والقراءات الصحية والمهام والحوادث
+                        المسجلة خلال الفترة المحددة.
+                    </p>
+
+                </div>
+
+
+                <div class="generate-actions">
+
+                    <button type="submit"
+                            id="generateSummaryBtn"
+                            class="primary-btn generate-btn">
+
+                        <span class="material-symbols-rounded">
+                            auto_awesome
+                        </span>
+
+                        إنشاء الملخص بالذكاء الاصطناعي
+
+                    </button>
+
+                </div>
+
+
+                <p id="generateMessage"
+                   class="form-message"
+                   role="status"
+                   aria-live="polite"></p>
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             Automatic Summary
+             ========================= -->
+
+        <section class="section-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        الإعدادات
+                    </span>
+
+                    <h2>
+                        الملخص التلقائي
+                    </h2>
+
+                    <p>
+                        حددي عدد مرات إنشاء الملخص تلقائيًا
+                    </p>
+
+                </div>
+
+                <div class="section-icon">
+
+                    <span class="material-symbols-rounded">
+                        event_repeat
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Preference Loading -->
+
+            <div id="preferenceLoading"
+                 class="small-loading">
+
+                <span class="material-symbols-rounded loading-icon">
+                    progress_activity
+                </span>
+
+                جاري تحميل الإعدادات...
+
+            </div>
+
+
+            <!-- No Preference -->
+
+            <div id="noPreferenceState"
+                 class="preference-empty hidden">
+
+                <div>
+
+                    <h3>
+                        لم يتم إعداد الملخص التلقائي
+                    </h3>
+
+                    <p>
+                        يمكنك إنشاء تفضيلات للملخص
+                        واختيار التكرار المناسب لك.
+                    </p>
+
+                </div>
+
+                <button type="button"
+                        id="setupPreferenceBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        settings
+                    </span>
+
+                    إعداد الملخص التلقائي
+
+                </button>
+
+            </div>
+
+
+            <!-- Existing Preference -->
+
+            <div id="preferenceContent"
+                 class="preference-content hidden">
+
+                <div class="auto-status-card">
+
+                    <div class="auto-status-info">
+
+                        <div id="autoStatusIcon"
+                             class="auto-status-icon">
+
+                            <span class="material-symbols-rounded">
+                                sync
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                الإنشاء التلقائي
+                            </span>
+
+                            <h3 id="autoStatusText">
+                                -
+                            </h3>
+
+                            <p id="autoStatusDescription">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="button"
+                            id="toggleAutoGenerateBtn"
+                            class="toggle-button">
+
+                        <span class="toggle-track">
+                            <span class="toggle-circle"></span>
+                        </span>
+
+                        <span id="toggleText">
+                            -
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div class="preference-details">
+
+                    <div class="preference-detail">
+
+                        <div class="preference-detail-icon">
+
+                            <span class="material-symbols-rounded">
+                                repeat
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                التكرار
+                            </span>
+
+                            <strong id="preferenceFrequency">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="preference-detail">
+
+                        <div class="preference-detail-icon">
+
+                            <span class="material-symbols-rounded">
+                                history
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                آخر إنشاء تلقائي
+                            </span>
+
+                            <strong id="lastGeneratedAt">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="preference-detail">
+
+                        <div class="preference-detail-icon">
+
+                            <span class="material-symbols-rounded">
+                                event_upcoming
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                الموعد القادم
+                            </span>
+
+                            <strong id="nextGenerationAt">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preference-actions">
+
+                    <button type="button"
+                            id="editPreferenceBtn"
+                            class="secondary-btn">
+
+                        <span class="material-symbols-rounded">
+                            edit
+                        </span>
+
+                        تعديل الإعدادات
+
+                    </button>
+
+
+                    <button type="button"
+                            id="deletePreferenceBtn"
+                            class="danger-outline-btn">
+
+                        <span class="material-symbols-rounded">
+                            delete
+                        </span>
+
+                        حذف الإعدادات
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <p id="preferenceMessage"
+               class="form-message"
+               role="status"
+               aria-live="polite"></p>
+
+        </section>
+
+
+        <!-- =========================
+             Important Note
+             ========================= -->
+
+        <section class="ai-note">
+
+            <span class="material-symbols-rounded">
+                health_and_safety
+            </span>
+
+            <div>
+
+                <strong>
+                    ملاحظة حول الملخص الذكي
+                </strong>
+
+                <p>
+                    يتم إنشاء الملخص اعتمادًا على بيانات الرعاية
+                    المسجلة في يسر خلال الفترة المحددة.
+                    يجب الرجوع إلى البيانات الأصلية عند الحاجة إلى التفاصيل.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     Preference Modal
+     ========================= -->
+
+<div id="preferenceModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="preferenceModalTitle">
+                    إعداد الملخص التلقائي
+                </h2>
+
+                <p>
+                    اختاري التكرار المناسب وحددي ما إذا كنت تريدين
+                    تشغيل الإنشاء التلقائي.
+                </p>
+
+            </div>
+
+
+            <button type="button"
+                    id="closePreferenceModal"
+                    class="icon-btn">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <form id="preferenceForm">
+
+            <div class="form-group">
+
+                <label for="frequency">
+                    تكرار الملخص
+                </label>
+
+                <select id="frequency"
+                        required>
+
+                    <option value="">
+                        اختاري التكرار
+                    </option>
+
+                    <option value="daily">
+                        يومي
+                    </option>
+
+                    <option value="weekly">
+                        أسبوعي
+                    </option>
+
+                    <option value="monthly">
+                        شهري
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <label class="auto-option">
+
+                <input type="checkbox"
+                       id="autoGenerate">
+
+                <span class="auto-option-box">
+
+                    <span class="material-symbols-rounded">
+                        auto_awesome
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            تشغيل الإنشاء التلقائي
+                        </strong>
+
+                        <small>
+                            سيقوم النظام بإنشاء الملخص تلقائيًا
+                            حسب التكرار المحدد.
+                        </small>
+
+                    </span>
+
+                </span>
+
+            </label>
+
+
+            <p id="preferenceModalMessage"
+               class="modal-message"></p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelPreferenceBtn"
+                        class="secondary-btn">
+
+                    إلغاء
+
+                </button>
+
+
+                <button type="submit"
+                        id="savePreferenceBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        save
+                    </span>
+
+                    حفظ الإعدادات
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script th:src="@{/js/smart-summary.js}"></script>
+
+</body>
+</html>

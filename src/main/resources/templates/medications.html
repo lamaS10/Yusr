@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الأدوية | يسر</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/medications.css}">
+</head>
+
+<body>
+
+<main class="medications-page">
+
+    <div class="medications-container">
+
+        <!-- Header -->
+        <header class="page-header">
+
+            <div>
+                <a th:href="@{/dashboard}" class="back-link">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                    العودة إلى لوحة التحكم
+                </a>
+
+                <h1>الأدوية والجرعات</h1>
+                <p>إدارة أدوية المريض ومواعيد الجرعات ومتابعة الالتزام اليومي</p>
+            </div>
+
+            <button type="button"
+                    id="addMedicationBtn"
+                    class="primary-btn">
+
+                <span class="material-symbols-rounded">add</span>
+                إضافة دواء
+            </button>
+
+        </header>
+
+
+        <!-- Today Summary -->
+        <section class="summary-section">
+
+            <div class="summary-heading">
+                <div>
+                    <span class="section-label">متابعة اليوم</span>
+                    <h2>ملخص جرعات اليوم</h2>
+                </div>
+
+                <span class="material-symbols-rounded summary-main-icon">
+                    medication
+                </span>
+            </div>
+
+            <div class="summary-grid">
+
+                <div class="summary-box">
+                    <span class="material-symbols-rounded">pill</span>
+
+                    <div>
+                        <strong id="totalDoses">0</strong>
+                        <small>إجمالي الجرعات</small>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <span class="material-symbols-rounded">check_circle</span>
+
+                    <div>
+                        <strong id="completedDoses">0</strong>
+                        <small>تم أخذها</small>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <span class="material-symbols-rounded">cancel</span>
+
+                    <div>
+                        <strong id="missedDoses">0</strong>
+                        <small>لم يتم أخذها</small>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <span class="material-symbols-rounded">schedule</span>
+
+                    <div>
+                        <strong id="remainingDoses">0</strong>
+                        <small>متبقية</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Warnings -->
+        <section id="warningsSection"
+                 class="warnings-section hidden">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>
+                        <span class="material-symbols-rounded">warning</span>
+                        تنبيهات الأدوية
+                    </h2>
+
+                    <p>أدوية تحتاج إلى الانتباه</p>
+                </div>
+
+            </div>
+
+            <div id="warningsList"
+                 class="warnings-list">
+            </div>
+
+        </section>
+
+
+        <!-- Today's Schedule -->
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>
+                        <span class="material-symbols-rounded">today</span>
+                        جرعات اليوم
+                    </h2>
+
+                    <p>مواعيد الأدوية المجدولة لهذا اليوم</p>
+                </div>
+
+            </div>
+
+            <div id="todayScheduleList"
+                 class="today-schedule-list">
+            </div>
+
+            <div id="emptyTodaySchedule"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    event_available
+                </span>
+
+                <h3>لا توجد جرعات مجدولة اليوم</h3>
+                <p>لا توجد مواعيد أدوية لهذا اليوم.</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Medications -->
+        <section class="content-card medications-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>
+                        <span class="material-symbols-rounded">medication</span>
+                        أدوية المريض
+                    </h2>
+
+                    <p>الأدوية المسجلة ومواعيد كل دواء</p>
+                </div>
+
+            </div>
+
+            <!--
+                JS builds the compact medication rows here.
+                Keep this ID unchanged.
+            -->
+            <div id="medicationsList"
+                 class="medications-list">
+            </div>
+
+            <div id="emptyMedications"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    medication
+                </span>
+
+                <h3>لا توجد أدوية مسجلة</h3>
+                <p>ابدئي بإضافة أول دواء للمريض.</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Today's Logs -->
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>
+                        <span class="material-symbols-rounded">history</span>
+                        سجل جرعات اليوم
+                    </h2>
+
+                    <p>الجرعات التي تم تسجيل حالتها اليوم</p>
+                </div>
+
+            </div>
+
+            <div id="todayLogsList"
+                 class="logs-list">
+            </div>
+
+            <div id="emptyLogs"
+                 class="empty-state hidden">
+
+                <span class="material-symbols-rounded">
+                    history
+                </span>
+
+                <h3>لا يوجد سجل لليوم</h3>
+                <p>لم يتم تسجيل أي جرعة حتى الآن.</p>
+
+            </div>
+
+        </section>
+
+
+        <p id="pageMessage"
+           class="form-message"
+           role="status"
+           aria-live="polite"></p>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================
+     Medication Modal
+     ========================================= -->
+
+<div id="medicationModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="medicationModalTitle">
+                    إضافة دواء
+                </h2>
+
+                <p>أدخلي بيانات الدواء والمخزون</p>
+            </div>
+
+            <button type="button"
+                    id="closeMedicationModal"
+                    class="icon-btn"
+                    aria-label="إغلاق">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+        <form id="medicationForm">
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+
+                    <label for="medicationName">
+                        اسم الدواء
+                    </label>
+
+                    <input type="text"
+                           id="medicationName"
+                           minlength="2"
+                           maxlength="50"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="dosageValue">
+                        الجرعة
+                    </label>
+
+                    <input type="number"
+                           id="dosageValue"
+                           min="0.01"
+                           step="0.01"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="dosageUnit">
+                        وحدة الجرعة
+                    </label>
+
+                    <select id="dosageUnit" required>
+
+                        <option value="">
+                            اختاري الوحدة
+                        </option>
+
+                        <option value="mg">mg</option>
+                        <option value="g">g</option>
+                        <option value="mcg">mcg</option>
+                        <option value="ml">ml</option>
+                        <option value="tablet">قرص</option>
+                        <option value="capsule">كبسولة</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="stockQuantity">
+                        الكمية المتوفرة
+                    </label>
+
+                    <input type="number"
+                           id="stockQuantity"
+                           min="0"
+                           step="1"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lowStockLimit">
+                        حد تنبيه المخزون
+                    </label>
+
+                    <input type="number"
+                           id="lowStockLimit"
+                           min="0"
+                           step="1"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="startDate">
+                        تاريخ البداية
+                    </label>
+
+                    <input type="date"
+                           id="startDate"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="endDate">
+                        تاريخ النهاية
+                    </label>
+
+                    <input type="date"
+                           id="endDate">
+
+                </div>
+
+            </div>
+
+
+            <p id="medicationFormMessage"
+               class="modal-message"></p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelMedicationBtn"
+                        class="secondary-btn">
+
+                    إلغاء
+                </button>
+
+
+                <button type="submit"
+                        id="saveMedicationBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        save
+                    </span>
+
+                    حفظ
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     Add Medication Stock Modal
+     ========================================= -->
+
+<div id="stockModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+            <div>
+                <h2>إضافة مخزون</h2>
+                <p id="stockMedicationName">-</p>
+            </div>
+
+            <button type="button"
+                    id="closeStockModal"
+                    class="icon-btn"
+                    aria-label="إغلاق">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+        </div>
+
+        <form id="stockForm">
+
+            <div class="form-group">
+                <label for="stockAmount">
+                    الكمية المضافة
+                </label>
+
+                <input type="number"
+                       id="stockAmount"
+                       min="1"
+                       step="1"
+                       required>
+            </div>
+
+            <p id="stockMessage"
+               class="modal-message"></p>
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelStockBtn"
+                        class="secondary-btn">
+                    إلغاء
+                </button>
+
+                <button type="submit"
+                        id="saveStockBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        inventory_2
+                    </span>
+
+                    إضافة للمخزون
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<!-- =========================================
+     Reactivate Medication Modal
+     ========================================= -->
+
+<div id="reactivateModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+            <div>
+                <h2>إعادة تنشيط الدواء</h2>
+                <p id="reactivateMedicationName">-</p>
+            </div>
+
+            <button type="button"
+                    id="closeReactivateModal"
+                    class="icon-btn"
+                    aria-label="إغلاق">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+        </div>
+
+        <p>
+            هل ترغبين في تحديث فترة استخدام الدواء؟
+        </p>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox"
+                       id="updateMedicationDates">
+                تحديث فترة الاستخدام
+            </label>
+        </div>
+
+        <div id="reactivateDates"
+             class="form-grid hidden">
+
+            <div class="form-group">
+                <label for="reactivateStartDate">
+                    تاريخ البداية الجديد
+                </label>
+
+                <input type="date"
+                       id="reactivateStartDate">
+            </div>
+
+            <div class="form-group">
+                <label for="reactivateEndDate">
+                    تاريخ النهاية الجديد
+                </label>
+
+                <input type="date"
+                       id="reactivateEndDate">
+            </div>
+
+        </div>
+
+        <p id="reactivateMessage"
+           class="modal-message"></p>
+
+        <div class="modal-actions">
+
+            <button type="button"
+                    id="cancelReactivateBtn"
+                    class="secondary-btn">
+                إلغاء
+            </button>
+
+            <button type="button"
+                    id="saveReactivateBtn"
+                    class="primary-btn">
+
+                <span class="material-symbols-rounded">
+                    restart_alt
+                </span>
+
+                إعادة التنشيط
+            </button>
+
+        </div>
+
+    </div>
+</div>
+<!-- =========================================
+     Schedule Modal
+     ========================================= -->
+
+<div id="scheduleModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="scheduleModalTitle">
+                    إضافة موعد جرعة
+                </h2>
+
+                <p id="scheduleMedicationName">-</p>
+            </div>
+
+
+            <button type="button"
+                    id="closeScheduleModal"
+                    class="icon-btn"
+                    aria-label="إغلاق">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+
+        <form id="scheduleForm">
+
+            <div class="form-group">
+
+                <label for="scheduleType">
+                    نوع الجدول
+                </label>
+
+                <select id="scheduleType" required>
+
+                    <option value="">
+                        اختاري نوع الجدول
+                    </option>
+
+                    <option value="daily">
+                        يومي
+                    </option>
+
+                    <option value="weekly">
+                        أسبوعي
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="dayOfWeekGroup"
+                 class="form-group hidden">
+
+                <label for="dayOfWeek">
+                    اليوم
+                </label>
+
+                <select id="dayOfWeek">
+
+                    <option value="">
+                        اختاري اليوم
+                    </option>
+
+                    <option value="sunday">الأحد</option>
+                    <option value="monday">الاثنين</option>
+                    <option value="tuesday">الثلاثاء</option>
+                    <option value="wednesday">الأربعاء</option>
+                    <option value="thursday">الخميس</option>
+                    <option value="friday">الجمعة</option>
+                    <option value="saturday">السبت</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="scheduledTime">
+                    وقت الجرعة
+                </label>
+
+                <input type="time"
+                       id="scheduledTime"
+                       required>
+
+            </div>
+
+
+            <p id="scheduleFormMessage"
+               class="modal-message"></p>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        id="cancelScheduleBtn"
+                        class="secondary-btn">
+
+                    إلغاء
+                </button>
+
+
+                <button type="submit"
+                        id="saveScheduleBtn"
+                        class="primary-btn">
+
+                    <span class="material-symbols-rounded">
+                        save
+                    </span>
+
+                    حفظ الموعد
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     Record Dose Modal
+     ========================================= -->
+
+<div id="doseModal"
+     class="modal-overlay hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>تسجيل الجرعة</h2>
+                <p id="doseMedicationName">-</p>
+            </div>
+
+
+            <button type="button"
+                    id="closeDoseModal"
+                    class="icon-btn"
+                    aria-label="إغلاق">
+
+                <span class="material-symbols-rounded">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+
+        <div class="dose-info">
+
+            <span>موعد الجرعة</span>
+
+            <strong id="doseScheduledTime">
+                -
+            </strong>
+
+        </div>
+
+
+        <div class="dose-status-options">
+
+            <!-- Backend value remains: taken -->
+            <button type="button"
+                    class="dose-status-btn taken"
+                    data-status="taken">
+
+                <span class="material-symbols-rounded">
+                    check_circle
+                </span>
+
+                <div class="dose-option-text">
+                    <strong>تم أخذ الجرعة</strong>
+                    <small>تم أخذها في موعدها</small>
+                </div>
+
+            </button>
+
+
+            <!-- Backend value remains: late -->
+            <button type="button"
+                    class="dose-status-btn late"
+                    data-status="late">
+
+                <span class="material-symbols-rounded">
+                    schedule
+                </span>
+
+                <div class="dose-option-text">
+                    <strong>تم أخذ الجرعة متأخرًا</strong>
+                    <small>تم أخذها بعد موعدها المحدد</small>
+                </div>
+
+            </button>
+
+
+            <!-- Backend value remains: missed -->
+            <button type="button"
+                    class="dose-status-btn missed"
+                    data-status="missed">
+
+                <span class="material-symbols-rounded">
+                    cancel
+                </span>
+
+                <div class="dose-option-text">
+                    <strong>لم يتم أخذ الجرعة</strong>
+                    <small>فات موعد الجرعة ولم يتم أخذها</small>
+                </div>
+
+            </button>
+
+        </div>
+
+
+        <p id="doseMessage"
+           class="modal-message"></p>
+
+    </div>
+
+</div>
+
+
+<script th:src="@{/js/medications.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,889 @@
+/* =========================
+   YUSR - Dashboard
+   ========================= */
+
+body {
+    background-color: var(--background);
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+.header-actions {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+}
+
+
+/* Profile Badge */
+.profile-badge {
+    min-width: 165px;
+    padding: 12px 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    background-color: #FFFFFF;
+    border: 1px solid #E2E2DE;
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    box-shadow: 0 2px 8px rgba(47, 62, 55, 0.03);
+
+    transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+}
+
+
+.profile-badge > .material-symbols-rounded {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background-color: #E8EDE9;
+    color: #40584D;
+
+    border-radius: 50%;
+
+    font-size: 21px;
+}
+
+
+.profile-badge > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+}
+
+
+.profile-badge > div > span {
+    color: #8A948F;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+.profile-badge > div > strong {
+    color: #40584D;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+
+.profile-badge:hover {
+    background-color: #F7F9F7;
+    border-color: #82998A;
+    transform: translateY(-1px);
+}
+
+/* =========================
+   Sidebar
+   ========================= */
+
+.sidebar {
+    width: 245px;
+    min-height: 100vh;
+
+    background-color: var(--white);
+    border-left: 1px solid #e9e5df;
+
+    padding: 25px 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.sidebar-logo img {
+    width: 130px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.menu-item {
+    padding: 13px 16px;
+    border-radius: 9px;
+
+    color: #68736e;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    transition: 0.2s;
+}
+
+.menu-item .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.menu-item:hover {
+    background-color: var(--light-green);
+    color: var(--primary);
+}
+
+.menu-item.active {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.logout-btn {
+    margin-top: auto;
+
+    padding: 12px 16px;
+
+    border: 1px solid #d9dedb;
+    border-radius: 8px;
+
+    background-color: transparent;
+    color: #9b5555;
+
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #fff6f6;
+    border-color: #dfc5c5;
+}
+
+
+/* =========================
+   Main
+   ========================= */
+
+.dashboard-main {
+    width: calc(100% - 245px);
+    margin-right: 245px;
+
+    padding: 45px 5%;
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+}
+
+.welcome-text {
+    color: var(--secondary);
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.dashboard-header h1 {
+    color: var(--primary);
+    font-size: 30px;
+}
+
+
+/* =========================
+   Caregiver Badge
+   ========================= */
+
+.caregiver-badge {
+    background-color: var(--white);
+
+    border: 1px solid #e7e4de;
+    border-radius: 12px;
+
+    padding: 12px 18px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    min-width: 165px;
+}
+
+.caregiver-badge > .material-symbols-rounded {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: var(--light-green);
+    color: var(--primary);
+
+    font-size: 21px;
+}
+
+.caregiver-badge div {
+    display: flex;
+    flex-direction: column;
+}
+
+.caregiver-badge div span {
+    color: #8a948f;
+    font-size: 12px;
+}
+
+.caregiver-badge strong {
+    color: var(--primary);
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+
+/* =========================
+   Patient
+   ========================= */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+.section-title > div:first-child span {
+    color: var(--secondary);
+    font-size: 13px;
+}
+
+.section-title h2 {
+    color: var(--primary);
+    margin-top: 4px;
+}
+
+.patient-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.edit-patient-btn {
+    padding: 7px 14px;
+
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+
+    color: var(--primary);
+    background-color: var(--white);
+
+    font-size: 13px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    transition: 0.2s;
+}
+
+.edit-patient-btn:hover {
+    background-color: var(--light-green);
+}
+
+.status-badge {
+    background-color: var(--light-green);
+    color: var(--primary) !important;
+
+    padding: 7px 15px;
+    border-radius: 20px;
+
+    font-size: 13px;
+}
+
+.patient-card {
+    background-color: var(--white);
+
+    border: 1px solid #e9e5df;
+    border-radius: 15px;
+
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+.patient-avatar {
+    width: 75px;
+    height: 75px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: var(--light-green);
+    color: var(--primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.patient-avatar .material-symbols-rounded {
+    font-size: 34px;
+}
+
+.patient-info {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.patient-info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-info span {
+    color: #8a948f;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.patient-info strong {
+    color: var(--text);
+    font-size: 14px;
+}
+
+#bloodType {
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: right;
+}
+
+
+/* =========================
+   Quick Access Cards
+   ========================= */
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+.dashboard-card {
+    background-color: var(--white);
+
+    border: 1px solid #e9e5df;
+    border-radius: 14px;
+
+    padding: 22px;
+
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.header-actions {
+    flex-wrap: wrap;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(64, 88, 77, 0.07);
+}
+
+.card-icon {
+    width: 45px;
+    height: 45px;
+
+    background-color: var(--light-green);
+    color: var(--primary);
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+}
+
+.card-icon .material-symbols-rounded {
+    font-size: 23px;
+}
+
+.dashboard-card h3 {
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.dashboard-card p {
+    color: #808a85;
+    line-height: 1.7;
+    font-size: 13px;
+}
+
+
+/* =========================
+   No Patient
+   ========================= */
+
+.no-patient {
+    max-width: 650px;
+
+    margin: 90px auto;
+
+    background-color: var(--white);
+
+    border: 1px solid #e9e5df;
+    border-radius: 18px;
+
+    padding: 55px 40px;
+
+    text-align: center;
+}
+
+.no-patient-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--light-green);
+    color: var(--primary);
+
+    border-radius: 50%;
+}
+
+.no-patient-icon .material-symbols-rounded {
+    font-size: 32px;
+}
+
+.no-patient h2 {
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.no-patient p {
+    color: #7d8782;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.add-patient-btn {
+    background-color: var(--primary);
+    color: var(--white);
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 12px 30px;
+
+    font-size: 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    transition: 0.2s;
+}
+
+.add-patient-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* =========================
+   Messages
+   ========================= */
+
+.dashboard-message {
+    text-align: center;
+    color: #a64b4b;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 1000px) {
+
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .patient-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 750px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .dashboard-main {
+        width: calc(100% - 210px);
+        margin-right: 210px;
+        padding: 35px 4%;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .patient-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .patient-info {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .sidebar {
+        position: static;
+
+        width: 100%;
+        min-height: auto;
+    }
+
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .dashboard-main {
+        width: 100%;
+        margin-right: 0;
+        padding: 30px 20px;
+    }
+
+    .dashboard-cards,
+    .patient-info {
+        grid-template-columns: 1fr;
+    }
+
+    .patient-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+.hidden {
+    display: none !important;
+}
+
+/* =========================
+   Pending Care Invitation
+   ========================= */
+
+.invitation-alert {
+    width: 100%;
+    margin: 8px 0 28px;
+    padding: 22px 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    background: #FFFFFF;
+    border: 1px solid #DDE4DF;
+    border-radius: 18px;
+}
+
+.invitation-alert.hidden {
+    display: none;
+}
+
+
+.invitation-alert-icon {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #E8EDE9;
+    color: #40584D;
+}
+
+.invitation-alert-icon .material-symbols-rounded {
+    font-size: 27px;
+}
+
+
+.invitation-alert-content {
+    flex: 1;
+}
+
+.invitation-label {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #82998A;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.invitation-alert-content h3 {
+    margin: 0 0 7px;
+
+    color: #2F3E37;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.invitation-alert-content p {
+    margin: 0;
+
+    color: #66736C;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.invitation-alert-content p strong {
+    color: #40584D;
+    font-weight: 700;
+}
+
+
+.invitation-alert-btn {
+    flex-shrink: 0;
+
+    padding: 12px 17px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border-radius: 10px;
+    background: #40584D;
+    color: #FFFFFF;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.invitation-alert-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.invitation-alert-btn .material-symbols-rounded {
+    font-size: 18px;
+}
+
+
+@media (max-width: 760px) {
+
+    .invitation-alert {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .invitation-alert-btn {
+        width: 100%;
+    }
+}
+
+.no-patient-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+.link-patient-btn {
+    min-height: 44px;
+    padding: 11px 20px;
+    border: 1px solid #82998A;
+    border-radius: 10px;
+    background: #FFFFFF;
+    color: #40584D;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.link-patient-btn:hover {
+    background: #E8EDE9;
+}
+
+.link-patient-box {
+    width: 100%;
+    max-width: 500px;
+    margin: 25px auto 0;
+    padding: 22px;
+    text-align: right;
+    background: #FFFFFF;
+    border: 1px solid #E8EDE9;
+    border-radius: 14px;
+}
+
+.link-patient-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #40584D;
+    margin-bottom: 8px;
+}
+
+.link-patient-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.link-patient-box > p {
+    color: #66736D;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.link-patient-box label {
+    display: block;
+    color: #2F3E37;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.link-patient-box input {
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #D5DDD8;
+    border-radius: 9px;
+    outline: none;
+    font-family: inherit;
+    direction: ltr;
+    text-align: left;
+}
+
+.link-patient-box input:focus {
+    border-color: #82998A;
+}
+
+.link-patient-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.confirm-link-btn,
+.cancel-link-btn {
+    min-height: 42px;
+    padding: 10px 18px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.confirm-link-btn {
+    border: none;
+    background: #40584D;
+    color: #FFFFFF;
+}
+
+.cancel-link-btn {
+    border: 1px solid #D5DDD8;
+    background: #FFFFFF;
+    color: #40584D;
+}
+
+.confirm-link-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.link-patient-message {
+    min-height: 20px;
+    margin-top: 8px !important;
+    margin-bottom: 0 !important;
+    font-size: 13px !important;
+    color: #40584D !important;
+}
+
+.pending-patient-notice {
+    max-width: 520px;
+    margin: 20px auto 0;
+    padding: 13px 16px;
+    border-radius: 10px;
+    background: #E8EDE9;
+    color: #40584D;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.pending-patient-notice .material-symbols-rounded {
+    margin-left: 5px;
+}
