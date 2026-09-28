@@ -1017,32 +1017,15 @@ Keep API Keys, tokens, SMTP credentials, and other secrets outside source contro
 Configure the required:
 
 - Twilio credentials.
-- Google GenAI API Key.
+- Gemini  API Key.
 - Brevo/Spring Mail credentials.
 
 before using their related features.
 
 ---
 
-## Run
 
-Using Maven Wrapper:
 
-```bash
-./mvnw spring-boot:run
-```
-
-On Windows:
-
-```bash
-mvnw.cmd spring-boot:run
-```
-
-Then open:
-
-```text
-http://localhost:8080/
-```
 
 ---
 
